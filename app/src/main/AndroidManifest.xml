@@ -1,0 +1,22 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.conch.bluedhook">
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        >
+        <!--添加标识-->
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true"/>
+        <!--在Xposed框架模块中的描述信息-->
+        <meta-data
+            android:name="xposeddescription"
+            android:value="@string/moduleInfo"/>
+        <!--导入jar的最低版本-->
+        <meta-data
+            android:name="xposedminversion"
+            android:value="53"/>
+    </application>
+</manifest>
