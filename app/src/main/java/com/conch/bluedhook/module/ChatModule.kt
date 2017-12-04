@@ -16,7 +16,6 @@ class ChatModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mC
         // place your hooks here, it should work with lpparam.classLoader
         //获取聊天模型
         val chatModel = XposedHelpers.findClass(HookConstant.chatModel, loader)
-        XposedBridge.log("Load ChatModel Successful!!:" + chatModel.toString())
         //开始黑入方法
         XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.msgAdapter, loader, "a",
                 chatModel,

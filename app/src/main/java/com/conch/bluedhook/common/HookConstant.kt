@@ -13,4 +13,11 @@ object HookConstant {
     val chatModel = "com.blued.android.chat.model.ChattingModel"
     //chatting ui
     val chatUI = ".ui.msg.MsgChattingFragment"
+    //welcomeUI
+    val welcomeUI=".ui.welcome.WelcomeFragment"
+    //DistanceUI
+    val distanceUI=".ui.find.adapter.FriendsGrid4Adapter"
+    //joyEntry
+    val userFindResult=".ui.find.model.UserFindResult"
+
 }

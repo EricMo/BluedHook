@@ -15,18 +15,20 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
  * Created by Benjamin on 2017/7/3.
  */
 class MainModule : IXposedHookLoadPackage {
-
+    var isHookSuccessful = false
     /**
      * 开始劫持
      */
     @Throws(Throwable::class)
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
-        if (lpparam.packageName != HookConstant.processName)
+        if (isHookSuccessful || lpparam.appInfo == null || lpparam.packageName != HookConstant.processName) {
             return
+        }
         XposedBridge.log("Voilà!we are in Blued!")
         ApplicationModule.hookApplicationContext(lpparam, { mContext, mClassLoader ->
+            isHookSuccessful = true
             //欢迎
-            Toast.makeText(mContext, R.string.welcome, Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "欢迎使用Blued模块", Toast.LENGTH_SHORT).show()
             //消息模块
             ChatModule(mClassLoader, mContext).hookChat()
             //广告模块
