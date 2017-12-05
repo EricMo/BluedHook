@@ -14,10 +14,15 @@ object HookConstant {
     //chatting ui
     val chatUI = ".ui.msg.MsgChattingFragment"
     //welcomeUI
-    val welcomeUI=".ui.welcome.WelcomeFragment"
-    //DistanceUI
-    val distanceUI=".ui.find.adapter.FriendsGrid4Adapter"
-    //joyEntry
-    val userFindResult=".ui.find.model.UserFindResult"
-
+    val welcomeUI = ".ui.welcome.WelcomeFragment"
+    //DistanceUI{Grid}
+    val distanceGrid4Manager = ".ui.find.adapter.FriendGrid4DataManager"
+    //DistanceUI{List}
+    val distanceListManager = ".ui.find.adapter.FriendListDataManager"
+    //discoverSquareUI
+    val discoverSquareFragment = ".ui.discover.fragment.DiscoverySquareFragment"
+    //BluedEntityA
+    val bluedEntityA = "com.blued.android.http.parser.BluedEntityA"
+    //my tab
+    val homePageMore=".ui.discover.fragment.HomePageMore"
 }

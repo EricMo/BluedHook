@@ -30,7 +30,7 @@ class MainModule : IXposedHookLoadPackage {
             //欢迎
             Toast.makeText(mContext, "欢迎使用Blued模块", Toast.LENGTH_SHORT).show()
             //消息模块
-            ChatModule(mClassLoader, mContext).hookChat()
+//            ChatModule(mClassLoader, mContext).hookChat()
             //广告模块
             AdsModule(mClassLoader, mContext).removeAds()
         })
