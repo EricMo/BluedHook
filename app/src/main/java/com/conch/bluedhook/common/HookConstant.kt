@@ -16,9 +16,9 @@ object HookConstant {
     //welcomeUI
     val welcomeUI = ".ui.welcome.WelcomeFragment"
     //DistanceUI{Grid}
-    val distanceGrid4Manager = ".ui.find.adapter.FriendGrid4DataManager"
+    val distanceGrid4Adapter = ".ui.find.adapter.FriendsGrid4Adapter"
     //DistanceUI{List}
-    val distanceListManager = ".ui.find.adapter.FriendListDataManager"
+    val distanceListAdapter = ".ui.find.adapter.FriendsListAdapter"
     //discoverSquareUI
     val discoverSquareFragment = ".ui.discover.fragment.DiscoverySquareFragment"
     //BluedEntityA

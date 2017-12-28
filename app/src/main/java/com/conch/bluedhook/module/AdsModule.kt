@@ -1,12 +1,11 @@
 package com.conch.bluedhook.module
 
 import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import com.conch.bluedhook.common.HookConstant
+import com.conch.bluedhook.common.ReflectionUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -16,10 +15,11 @@ import de.robv.android.xposed.XposedHelpers
  */
 class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mContext) {
     fun removeAds() {
-        XposedBridge.log("Now,Starting remove ads")
+        XposedBridge.log("adsModule loads successfully")
         removeWelcomeAds()
         removeNearbyAds()
         removeSquareAds()
+        removeMoney()
         removeGameCenter()
     }
 
@@ -29,7 +29,7 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
     private fun removeWelcomeAds() {
         XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.welcomeUI, loader, "a", Context::class.java, Boolean::class.java, Boolean::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                XposedBridge.log("Hook welcome Ads Successfully")
+                XposedBridge.log("Remove welcome's Ads Successfully")
                 if (param!!.args[1] as Boolean) {
                     //don't show Ads
                     param.args[1] = false
@@ -40,36 +40,38 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
 
     /**
      * remove nearby ads
+     *   public static final int fl_ad = 2131559167;
+     *   public static final int fl_ads = 2131558875;
      */
     private fun removeNearbyAds() {
         //Grid UI
-        XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.distanceGrid4Manager, loader, "a", MutableList::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                val data = param!!.args[0] as MutableList<Any>
-                param.args[0] = removeAds(data)
+        XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.distanceGrid4Adapter, loader, "getView", Int::class.java, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                val item = removeAds(param)
+                param!!.result = item
             }
         })
         //List UI
-        XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.distanceListManager, loader, "a", MutableList::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                val data = param!!.args[0] as MutableList<Any>
-                param.args[0] = removeAds(data)
+        XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.distanceListAdapter, loader, "getView", Int::class.java, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                val item = removeAds(param)
+                param!!.result = item
             }
         })
     }
 
     /**
-     * remove ads result
-     * @param data old data
-     * @return new data
+     * filter the item
+     * if(R.id.2131559167).visibility==VISIBLE,the item is a ads.so we need remove it
      */
-    private fun removeAds(data: MutableList<Any>): MutableList<Any> {
-        data.removeAll {
-            val field = it.javaClass.getField("is_ads")
-            field.isAccessible = true
-            field.get(it) == 1
+    private fun removeAds(param: XC_MethodHook.MethodHookParam?): View {
+        val item = param!!.result as View
+        val ads = item.findViewById(2131559167)
+        if (ads!!.visibility == View.VISIBLE) {
+            ads.visibility = GONE
+            XposedBridge.log("Remove nearby's Ads Successfully")
         }
-        return data
+        return item
     }
 
     /**
@@ -91,6 +93,25 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.homePageMore, loader, "a", List::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 param!!.args[0] = null
+            }
+        })
+    }
+
+    /**
+     * remove Money
+     */
+    private fun removeMoney() {
+        XposedHelpers.findAndHookMethod(HookConstant.processName + HookConstant.homePageMore, loader, "b", object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                val classZ = param!!.thisObject.javaClass
+
+                val nField = classZ.getDeclaredField("n")
+                nField.isAccessible = true
+                (nField.get(param.thisObject) as View).visibility = GONE
+
+                val qField = classZ.getDeclaredField("q")
+                qField.isAccessible = true
+                (qField.get(param.thisObject) as View).visibility = GONE
             }
         })
     }
