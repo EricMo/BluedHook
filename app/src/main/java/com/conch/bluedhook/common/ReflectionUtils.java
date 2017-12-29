@@ -11,6 +11,23 @@ import de.robv.android.xposed.XposedBridge;
  */
 
 public class ReflectionUtils {
+
+    /***
+     * 循环获取类的属性
+     * @param obj
+     */
+    public static void getFieldsValue(Object obj) {
+        Field[] fields = obj.getClass().getFields();
+        for (Field f : fields) {
+            try {
+                XposedBridge.log("字段：" + f.getName() + " 类型为：" + f.getType().getName() + " 值为：" + getFieldValue(obj,
+                        f.getName()));
+            } catch (IllegalArgumentException e) {
+                XposedBridge.log(e.toString());
+            }
+        }
+    }
+
     /**
      * 循环向上转型, 获取对象的 DeclaredMethod
      *

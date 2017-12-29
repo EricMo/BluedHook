@@ -24,5 +24,14 @@ object HookConstant {
     //BluedEntityA
     val bluedEntityA = "com.blued.android.http.parser.BluedEntityA"
     //my tab
-    val homePageMore=".ui.discover.fragment.HomePageMore"
+    val homePageMore = ".ui.discover.fragment.HomePageMore"
+
+    val flashPic = "com.soft.blued.ui.video.ShowVideoDestroyFragment"
+
+    //basefragment
+    val baseFragment = "com.blued.android.ui.BaseFragment"
+    //chatHelper
+    val chatHelpler = ".ui.msg.controller.tools.ChatHelperV4"
+    //chatManager
+    val chatManager="com.blued.android.chat.ChatManager";
 }

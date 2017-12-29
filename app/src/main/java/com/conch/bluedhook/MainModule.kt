@@ -5,7 +5,7 @@ import android.widget.Toast
 import com.conch.bluedhook.common.HookConstant
 import com.conch.bluedhook.module.AdsModule
 import com.conch.bluedhook.module.ApplicationModule
-import com.conch.bluedhook.module.ChatModule
+import com.conch.bluedhook.module.MessageModule
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -30,7 +30,7 @@ class MainModule : IXposedHookLoadPackage {
             isHookSuccessful = true
             Toast.makeText(mContext, "Welcome to use Blued module", Toast.LENGTH_SHORT).show()
             //Message Module
-            ChatModule(mClassLoader, mContext).hookChat()
+            MessageModule(mClassLoader, mContext).hookMessage()
             //ad Module
             AdsModule(mClassLoader, mContext).removeAds()
         })
