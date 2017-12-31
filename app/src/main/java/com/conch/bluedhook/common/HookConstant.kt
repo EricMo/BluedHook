@@ -8,30 +8,42 @@ object HookConstant {
     //the main process
     val processName = "com.soft.blued"
     //msg adapter
-    val msgAdapter = ".ui.msg.adapter.MessageChatAdapter"
+    val msgAdapter = "$processName.ui.msg.adapter.MessageChatAdapter"
     //chat model
     val chatModel = "com.blued.android.chat.model.ChattingModel"
     //chatting ui
-    val chatUI = ".ui.msg.MsgChattingFragment"
+    val chatUI = "$processName.ui.msg.MsgChattingFragment"
     //welcomeUI
-    val welcomeUI = ".ui.welcome.WelcomeFragment"
+    val welcomeUI = "$processName.ui.welcome.WelcomeFragment"
+    //NearByWithAds
+    val nearByWithAds = "$processName.ui.find.model.NearByWithAds"
     //DistanceUI{Grid}
-    val distanceGrid4Adapter = ".ui.find.adapter.FriendsGrid4Adapter"
+    val distanceGrid4Adapter = "$processName.ui.find.adapter.FriendsGrid4Adapter"
+    //GridViewHolder
+    val distanceGrid4AdapterHolder="$distanceGrid4Adapter\$ViewHolder"
     //DistanceUI{List}
-    val distanceListAdapter = ".ui.find.adapter.FriendsListAdapter"
+    val distanceListAdapter = "$processName.ui.find.adapter.FriendsListAdapter"
+    //ListViewHolder
+    val distanceListAdapterHolder="$distanceListAdapter\$ViewHolder"
     //discoverSquareUI
-    val discoverSquareFragment = ".ui.discover.fragment.DiscoverySquareFragment"
+    val discoverSquareFragment = "$processName.ui.discover.fragment.DiscoverySquareFragment"
     //BluedEntityA
     val bluedEntityA = "com.blued.android.http.parser.BluedEntityA"
     //my tab
-    val homePageMore = ".ui.discover.fragment.HomePageMore"
+    val homePageMore = "$processName.ui.discover.fragment.HomePageMore"
 
-    val flashPic = "com.soft.blued.ui.video.ShowVideoDestroyFragment"
+    val flashPic = "$processName.ui.video.ShowVideoDestroyFragment"
 
     //basefragment
     val baseFragment = "com.blued.android.ui.BaseFragment"
     //chatHelper
-    val chatHelpler = ".ui.msg.controller.tools.ChatHelperV4"
+    val chatHelpler = "$processName.ui.msg.controller.tools.ChatHelperV4"
     //chatManager
-    val chatManager="com.blued.android.chat.ChatManager";
+    val chatManager = "com.blued.android.chat.ChatManager"
+
+    //chatfragment
+    val chatFragment = "$processName.ui.msg.MsgChattingFragment"
+
+    //md5Key-BenjaminKeyLastType
+    val key="61C0A240C4AF5F16DA0738512255BA16"
 }
