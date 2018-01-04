@@ -24,11 +24,13 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         convertRecallMessage()
         convertFlashPic()
         convertNotify()
-        //reverseMessage()
-        messageInfo()
+//        messageInfo()
     }
 
 
+    /**
+     * convert the recall message to normal message
+     */
     private fun convertRecallMessage() {
         XposedHelpers.findAndHookMethod(HookConstant.chatFragment, loader, "onMsgDataChanged", List::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
@@ -39,7 +41,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                         val type = XposedHelpers.getShortField(it, "msgType")
                         if (type == 55.toShort()) {
                             val content = XposedHelpers.getObjectField(it, "msgContent")?.toString()
-                            if (TextUtils.isEmpty(content!!)) {
+                            if (!TextUtils.isEmpty(content!!)) {
                                 if (content.contains("blued-burn")) {
                                     XposedHelpers.setShortField(it, "msgType", 24)
                                 } else if (content.contains("blued-chatfiles") && (content.contains("jpg") || content.contains("png"))) {
@@ -52,7 +54,6 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                             }
                             XposedHelpers.setAdditionalInstanceField(it, "notify", "He tried to recall this message.")
                         }
-
                         //                        else if (type == 55.toShort()) {
 //                            val msgContent = XposedHelpers.getObjectField(it, "msgContent")?.toString()
 //                            XposedBridge.log("show message====msgContent = $msgContent")

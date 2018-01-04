@@ -8,3 +8,5 @@
 /build
 /captures
 .idea
+*.apk
+app/release/output.json
