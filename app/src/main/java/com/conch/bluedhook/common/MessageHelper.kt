@@ -11,6 +11,9 @@ import android.widget.TextView
  * Created by Benjamin on 2017/12/29.
  */
 object MessageHelper {
+    /**
+     * chat_notice_notify_content_style
+     */
     @SuppressLint("ResourceType")
     fun makeNotifyTextView(mContext: Context, content: String): TextView {
         val notify = TextView(mContext)
@@ -19,7 +22,7 @@ object MessageHelper {
         params.gravity = Gravity.CENTER_HORIZONTAL
         notify.tag = 0x0000001
         notify.textSize = 12f
-        notify.setBackgroundResource(2130838772)
+        notify.setBackgroundResource(2131296712)
         notify.text = content
         notify.setTextColor(Color.parseColor("#ffadafb0"))
         notify.gravity = Gravity.CENTER_HORIZONTAL

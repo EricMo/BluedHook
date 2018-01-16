@@ -10,6 +10,7 @@ import com.conch.bluedhook.common.ReflectionUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
+import java.lang.StringBuilder
 
 /**
  * Created by Benjamin on 2017/11/23.
@@ -21,17 +22,84 @@ import de.robv.android.xposed.XposedHelpers
 class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mContext) {
 
     fun hookMessage() {
-        convertRecallMessage()
+        hookReceiveRetractMsg()
+        convertRetractMsgToNormal()
         convertFlashPic()
         convertNotify()
-//        messageInfo()
+      //  messageInfo()
     }
 
 
     /**
+     * receive the retract command，q.h=55,q.d=msgId
+     */
+    private fun hookReceiveRetractMsg() {
+        val q = XposedHelpers.findClassIfExists("com.blued.android.chat.core.pack.q", loader)
+        XposedHelpers.findAndHookMethod("com.blued.android.chat.core.worker.chat.a", loader, "a", q, object : XC_MethodHook() {
+            override fun beforeHookedMethod(param: MethodHookParam?) {
+                XposedBridge.log("=======Receive recall order============")
+                val q = param!!.args[0]
+                XposedBridge.log("j:${XposedHelpers.callMethod(q, "toString")}")
+                val msgId = XposedHelpers.getObjectField(q, "d")
+                //get msgType
+                val type = XposedHelpers.getLongField(q, "h")
+                //if msgType is 55.so this is a recall message
+                if (type == 55.toLong()) {
+                    //Find db,we need do something with database
+                    val chatManager = XposedHelpers.findClassIfExists(HookConstant.chatManager, loader)
+                    val dbOperImpl = XposedHelpers.getStaticObjectField(chatManager, "dbOperImpl")
+                    //check the session's msgList
+                    var sessionKey = XposedHelpers.callStaticMethod(XposedHelpers.findClassIfExists("com.blued.android.chat.data.SessionHeader", loader), "getSessionKey", XposedHelpers.getIntField(q, "b"), XposedHelpers.getLongField(q, "c"))
+                    val g = XposedHelpers.getObjectField(param.thisObject, "g") as java.util.Map<String, Any>
+                    synchronized(g) {
+                        sessionKey = g[sessionKey]
+                        if (sessionKey != null) {
+                            val msgList = XposedHelpers.getObjectField(sessionKey, "_msgList") as List<*>
+                            val msgData = msgList.find {
+                                XposedHelpers.getObjectField(it, "msgId") == msgId
+                            }
+                            if (msgData != null) {
+                                markOriginalMsgType(msgData, dbOperImpl)
+                            }
+                        }
+                    }
+                    //check the database's msgList
+                    val chatModel = XposedHelpers.callMethod(dbOperImpl, "findMsgData",
+                            XposedHelpers.getObjectField(q, "b"),
+                            XposedHelpers.getObjectField(q, "c"),
+                            XposedHelpers.getObjectField(q, "d"),
+                            0L
+                    )
+                    markOriginalMsgType(chatModel, dbOperImpl)
+                }
+            }
+        })
+    }
+
+    /**
+     * mark original message type to content
+     * like:{【message content】+【HookConstant.key】+【original message type】}
+     */
+    private fun markOriginalMsgType(chatModel: Any?, dbOperImpl: Any): Any? {
+        val msgType = XposedHelpers.getShortField(chatModel, "msgType")
+        val `object` = XposedHelpers.getObjectField(chatModel, "msgContent")
+        val content = if (`object` == null) {
+            StringBuilder()
+        } else {
+            StringBuilder(`object`.toString())
+        }
+        content.append(HookConstant.key)
+        content.append(msgType)
+        XposedHelpers.setObjectField(chatModel, "msgContent", content.toString())
+        ReflectionUtils.getFieldsValue(chatModel)
+        XposedHelpers.callMethod(dbOperImpl, "updateChattingModel", chatModel)
+        return chatModel
+    }
+
+    /**
      * convert the recall message to normal message
      */
-    private fun convertRecallMessage() {
+    private fun convertRetractMsgToNormal() {
         XposedHelpers.findAndHookMethod(HookConstant.chatFragment, loader, "onMsgDataChanged", List::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 val data = param!!.args[0] as List<Any>
@@ -42,7 +110,11 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                         if (type == 55.toShort()) {
                             val content = XposedHelpers.getObjectField(it, "msgContent")?.toString()
                             if (!TextUtils.isEmpty(content!!)) {
-                                if (content.contains("blued-burn")) {
+                                if (content.contains(HookConstant.key)) {
+                                    val data = content.split(HookConstant.key)
+                                    XposedHelpers.setObjectField(it, "msgContent", data[0])
+                                    XposedHelpers.setShortField(it, "msgType", data[1].toShort())
+                                } else if (content.contains("blued-burn")) {
                                     XposedHelpers.setShortField(it, "msgType", 24)
                                 } else if (content.contains("blued-chatfiles") && (content.contains("jpg") || content.contains("png"))) {
                                     XposedHelpers.setShortField(it, "msgType", 2)
@@ -54,50 +126,11 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                             }
                             XposedHelpers.setAdditionalInstanceField(it, "notify", "He tried to recall this message.")
                         }
-                        //                        else if (type == 55.toShort()) {
-//                            val msgContent = XposedHelpers.getObjectField(it, "msgContent")?.toString()
-//                            XposedBridge.log("show message====msgContent = $msgContent")
-//                            var data: List<String>
-//                            if (!TextUtils.isEmpty(msgContent) && msgContent!!.contains(HookConstant.key)) {
-//                                data = msgContent.split(HookConstant.key)
-//                                XposedHelpers.setShortField(it, "msgType", data[1].toShort())
-//                                XposedHelpers.setObjectField(it, "msgContent", data[0])
-//                                if (TextUtils.isEmpty(data[0])) {
-//                                    XposedHelpers.setAdditionalInstanceField(it, "notify", "He has recalled the message before you got it")
-//                                } else {
-//                                    XposedHelpers.setAdditionalInstanceField(it, "notify", "He tried to recall this message")
-//                                }
-//
-//                            }
-//
-//                        }
                     }
                 }
             }
         })
     }
-
-    /**
-     * mark this message last type
-     */
-    private fun reverseMessage() {
-        XposedHelpers.findAndHookConstructor(HookConstant.chatModel, loader, XposedHelpers.findClassIfExists(HookConstant.chatModel, loader), object : XC_MethodHook() {
-            override fun afterHookedMethod(param: MethodHookParam?) {
-                val message = param!!.args[0]
-                val type = XposedHelpers.getIntField(message, "msgType")
-                var content = XposedHelpers.getObjectField(message, "msgContent")?.toString()
-                if (content != null && TextUtils.isEmpty(content)) {
-                    content = HookConstant.key
-                } else {
-                    content += HookConstant.key
-                }
-                content += type
-                XposedHelpers.setObjectField(message, "msgContent", content)
-                XposedBridge.log("copy message====msgContent = ${XposedHelpers.getObjectField(message, "msgContent")}")
-            }
-        })
-    }
-
 
     /**
      * convert flash pic to normal pic
