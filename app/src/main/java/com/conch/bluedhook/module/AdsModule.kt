@@ -83,6 +83,12 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
                 param!!.args[0] = null
             }
         })
+        XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "b", List::class.java, object : XC_MethodHook() {
+            override fun beforeHookedMethod(param: MethodHookParam?) {
+                param!!.args[0] = null
+            }
+        })
+
     }
 
     /**
@@ -92,11 +98,11 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "b", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 val classZ = param!!.thisObject.javaClass
-                val nField = classZ.getDeclaredField("n")
+                val nField = classZ.getDeclaredField("o")
                 nField.isAccessible = true
                 (nField.get(param.thisObject) as View).visibility = GONE
 
-                val qField = classZ.getDeclaredField("q")
+                val qField = classZ.getDeclaredField("r")
                 qField.isAccessible = true
                 (qField.get(param.thisObject) as View).visibility = GONE
             }

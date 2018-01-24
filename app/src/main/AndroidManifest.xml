@@ -1,22 +1,28 @@
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.conch.bluedhook">
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        >
-        <!--添加标识-->
+        android:label="@string/app_name">
         <meta-data
             android:name="xposedmodule"
-            android:value="true"/>
-        <!--在Xposed框架模块中的描述信息-->
+            android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="@string/moduleInfo"/>
-        <!--导入jar的最低版本-->
+            android:value="@string/moduleInfo" />
         <meta-data
             android:name="xposedminversion"
-            android:value="53"/>
+            android:value="53" />
+
+        <activity android:name=".ui.MainActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
+
 </manifest>

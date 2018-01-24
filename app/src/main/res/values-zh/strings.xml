@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Blued模块</string>
+    <string name="moduleInfo">Blued模块,我们做的比你想的多!</string>
+    <string name="welcome">欢迎使用Blued模块</string>
+    <string name="freeNotice">本软件坚持开源免费的分享精神,我们不会以任何理由收费。\n也不会以任何理由收集或储存用户信息。\n请不要将本软件用于任何非法用途。\n请真诚待人。\n祝各位早日卸载\"Blued\"。</string>
+    <string name="openApp">打开应用</string>
+</resources>

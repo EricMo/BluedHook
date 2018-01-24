@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">BluedHook</string>
-    <string name="moduleInfo">blued hook,Let\'s make world better!</string>
+    <string name="moduleInfo">blued hook,We do more than you think.</string>
     <string name="welcome">Welcome to use blued plugin!</string>
+    <string name="freeNotice">This software insists on open source and free sharing spirit.\nWe will not charge for any reason, nor will we collect or store user information for any reason. \n Please don't use this software for any illegal purposes. \nPlease be sincere to everybody. \nWe wish you to uninstall \"Blued\" early.</string>
+    <string name="openApp">Open App</string>
 </resources>

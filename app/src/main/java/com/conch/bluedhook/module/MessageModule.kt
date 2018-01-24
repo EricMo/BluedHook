@@ -37,7 +37,6 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         val q = XposedHelpers.findClassIfExists("com.blued.android.chat.core.pack.q", loader)
         XposedHelpers.findAndHookMethod("com.blued.android.chat.core.worker.chat.a", loader, "a", q, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                XposedBridge.log("=======Receive recall order============")
                 val q = param!!.args[0]
                 XposedBridge.log("j:${XposedHelpers.callMethod(q, "toString")}")
                 val msgId = XposedHelpers.getObjectField(q, "d")
