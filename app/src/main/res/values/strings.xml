@@ -2,6 +2,31 @@
     <string name="app_name">BluedHook</string>
     <string name="moduleInfo">blued hook,We do more than you think.</string>
     <string name="welcome">Welcome to use blued plugin!</string>
-    <string name="freeNotice">This software insists on open source and free sharing spirit.\nWe will not charge for any reason, nor will we collect or store user information for any reason. \n Please don't use this software for any illegal purposes. \nPlease be sincere to everybody. \nWe wish you to uninstall \"Blued\" early.</string>
-    <string name="openApp">Open App</string>
+    <string name="freeNotice">This software persists in open source sharing spirit\nwe will not charge for any reason\nNor will we collect or store user information for any reason\nPlease don't use this software for any illegal purposes\nPlease be honest with others, \n, We wish you all have an early assignment.</string>
+    <string name="success">ACTIVATION SUCCESS</string>
+    <string name="failed">ACTIVATION FAILURE</string>
+    <string name="setting">Setting</string>
+    <string name="support">Support</string>
+
+    <!--pref-->
+    <!--ads-->
+    <string name="switch_ads_title">Remove Ads</string>
+    <string name="switch_ads_title_summary">Remove almost ads in this App</string>
+
+    <!--Deposit-->
+    <string name="switch_deposit_title">Remove Deposit Center</string>
+    <string name="switch_deposit_title_summary">Remove \"Main-Me\" Deposit Center</string>
+
+    <!--Deposit-->
+    <string name="switch_game_title">Remove Game</string>
+    <string name="switch_game_title_summary">Remove \"Main-Me\" Game Center</string>
+
+
+    <!--recall-->
+    <string name="switch_recall_title">Anti Recall</string>
+    <string name="switch_recall_title_summary">Reproducing the message to be recalled</string>
+
+    <!--burning-->
+    <string name="switch_burning_title">Burning Picture</string>
+    <string name="switch_burning_title_summary">Turn the \"Burning Picture\" into a normal picture</string>
 </resources>

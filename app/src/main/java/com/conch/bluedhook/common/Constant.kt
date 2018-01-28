@@ -20,11 +20,11 @@ object HookConstant {
     //DistanceUI{Grid}
     val distanceGrid4Adapter = "$processName.ui.find.adapter.FriendsGrid4Adapter"
     //GridViewHolder
-    val distanceGrid4AdapterHolder="$distanceGrid4Adapter\$ViewHolder"
+    val distanceGrid4AdapterHolder = "$distanceGrid4Adapter\$ViewHolder"
     //DistanceUI{List}
     val distanceListAdapter = "$processName.ui.find.adapter.FriendsListAdapter"
     //ListViewHolder
-    val distanceListAdapterHolder="$distanceListAdapter\$ViewHolder"
+    val distanceListAdapterHolder = "$distanceListAdapter\$ViewHolder"
     //discoverSquareUI
     val discoverSquareFragment = "$processName.ui.discover.fragment.DiscoverySquareFragment"
     //BluedEntityA
@@ -45,5 +45,13 @@ object HookConstant {
     val chatFragment = "$processName.ui.msg.MsgChattingFragment"
 
     //md5Key-BenjaminKeyLastType
-    val key="61C0A240C4AF5F16DA0738512255BA16"
+    val key = "61C0A240C4AF5F16DA0738512255BA16"
+
+}
+
+object SelfHookConstant {
+    //self processName
+    val processName = "com.conch.bluedhook"
+    //main activity
+    val mainActivity = "$processName.ui.MainActivity"
 }

@@ -2,6 +2,33 @@
     <string name="app_name">Blued模块</string>
     <string name="moduleInfo">Blued模块,我们做的比你想的多!</string>
     <string name="welcome">欢迎使用Blued模块</string>
-    <string name="freeNotice">本软件坚持开源免费的分享精神,我们不会以任何理由收费。\n也不会以任何理由收集或储存用户信息。\n请不要将本软件用于任何非法用途。\n请真诚待人。\n祝各位早日卸载\"Blued\"。</string>
-    <string name="openApp">打开应用</string>
+    <string name="freeNotice">本软件坚持开源分享精神\n我们不会以任何理由收费\n也不会以任何理由收集或储存用户信息\n请不要将本软件用于任何非法用途\n请真诚待人\n祝各位早日有所归属</string>
+    <string name="success">激活成功</string>
+    <string name="failed">激活失败</string>
+    <string name="setting">设置</string>
+    <string name="support">联系我</string>
+
+    <!--pref-->
+    <!--ads-->
+    <string name="switch_ads_title">移除广告</string>
+    <string name="switch_ads_title_summary">删除该应用中几乎所有的广告</string>
+
+
+    <!--Deposit-->
+    <string name="switch_deposit_title">移除充值中心</string>
+    <string name="switch_deposit_title_summary">移除\"主页-我的\"充值中心</string>
+
+
+    <!--game-->
+    <string name="switch_game_title">移除游戏中心</string>
+    <string name="switch_game_title_summary">移除\"主页-我的\"游戏中心</string>
+
+    <!--recall-->
+    <string name="switch_recall_title">防撤回</string>
+    <string name="switch_recall_title_summary">重现被撤回的消息</string>
+
+
+    <!--burning-->
+    <string name="switch_burning_title">闪照</string>
+    <string name="switch_burning_title_summary">将 \"闪照\" 转换成普通图片</string>
 </resources>
