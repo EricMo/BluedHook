@@ -3,9 +3,8 @@ package com.conch.bluedhook.module
 import android.content.Context
 import android.view.View
 import android.view.View.GONE
-import android.view.ViewGroup
 import com.conch.bluedhook.common.HookConstant
-import com.conch.bluedhook.common.ReflectionUtils
+import com.conch.bluedhook.common.SettingHelper
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -29,10 +28,11 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
     private fun removeWelcomeAds() {
         XposedHelpers.findAndHookMethod(HookConstant.welcomeUI, loader, "a", Context::class.java, Boolean::class.java, Boolean::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                XposedBridge.log("Remove welcome's Ads Successfully")
-                if (param!!.args[1] as Boolean) {
-                    //don't show Ads
-                    param.args[1] = false
+                if (SettingHelper(mContext).getIsRemoveAds()) {
+                    if (param!!.args[1] as Boolean) {
+                        //don't show Ads
+                        param.args[1] = false
+                    }
                 }
             }
         })
@@ -49,14 +49,16 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         XposedHelpers.findAndHookMethod(HookConstant.distanceGrid4Adapter, loader, "a", XposedHelpers.findClassIfExists(HookConstant.distanceGrid4AdapterHolder, loader), XposedHelpers.findClassIfExists(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 XposedBridge.log("This item's type is 2,so We do not need to perform this method")
-                param!!.result = null
+                if (SettingHelper(mContext).getIsRemoveAds())
+                    param!!.result = null
             }
         })
         //List UI
         XposedHelpers.findAndHookMethod(HookConstant.distanceListAdapter, loader, "a", XposedHelpers.findClassIfExists(HookConstant.distanceListAdapterHolder, loader), XposedHelpers.findClassIfExists(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 XposedBridge.log("This item's type is 2,so We do not need to perform this method")
-                param!!.result = null
+                if (SettingHelper(mContext).getIsRemoveAds())
+                    param!!.result = null
             }
         })
     }
@@ -69,7 +71,8 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         val bluedEntityA = XposedHelpers.findClass(HookConstant.bluedEntityA, loader)
         XposedHelpers.findAndHookMethod(HookConstant.discoverSquareFragment, loader, "a", bluedEntityA, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                param!!.args[0] = null
+                if (SettingHelper(mContext).getIsRemoveAds())
+                    param!!.args[0] = null
             }
         })
     }
@@ -80,12 +83,14 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
     private fun removeGameCenter() {
         XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "a", List::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                param!!.args[0] = null
+                if (SettingHelper(mContext).getIsSwitchGame())
+                    param!!.args[0] = null
             }
         })
         XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "b", List::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                param!!.args[0] = null
+                if (SettingHelper(mContext).getIsSwitchGame())
+                    param!!.args[0] = null
             }
         })
 
@@ -97,14 +102,16 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
     private fun removeMoney() {
         XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "b", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
-                val classZ = param!!.thisObject.javaClass
-                val nField = classZ.getDeclaredField("o")
-                nField.isAccessible = true
-                (nField.get(param.thisObject) as View).visibility = GONE
+                if (SettingHelper(mContext).getIsSwitchDeposit()) {
+                    val classZ = param!!.thisObject.javaClass
+                    val nField = classZ.getDeclaredField("o")
+                    nField.isAccessible = true
+                    (nField.get(param.thisObject) as View).visibility = GONE
 
-                val qField = classZ.getDeclaredField("r")
-                qField.isAccessible = true
-                (qField.get(param.thisObject) as View).visibility = GONE
+                    val qField = classZ.getDeclaredField("r")
+                    qField.isAccessible = true
+                    (qField.get(param.thisObject) as View).visibility = GONE
+                }
             }
         })
     }

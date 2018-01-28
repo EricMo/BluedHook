@@ -13,7 +13,7 @@ object ApplicationModule {
     fun hookApplicationContext(lpparam: XC_LoadPackage.LoadPackageParam, body: (Context, ClassLoader) -> Unit) {
         XposedHelpers.findAndHookMethod(Application::class.java, "attach", Context::class.java, object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
-                body.invoke(param!!.thisObject as Context, lpparam.classLoader)
+                    body.invoke(param!!.thisObject as Context, lpparam.classLoader)
             }
         })
     }

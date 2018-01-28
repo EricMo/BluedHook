@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.conch.bluedhook.common.HookConstant
 import com.conch.bluedhook.common.MessageHelper
 import com.conch.bluedhook.common.ReflectionUtils
+import com.conch.bluedhook.common.SettingHelper
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -26,7 +27,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         convertRetractMsgToNormal()
         convertFlashPic()
         convertNotify()
-      //  messageInfo()
+        //  messageInfo()
     }
 
 
@@ -101,29 +102,31 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
     private fun convertRetractMsgToNormal() {
         XposedHelpers.findAndHookMethod(HookConstant.chatFragment, loader, "onMsgDataChanged", List::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                val data = param!!.args[0] as List<Any>
-                data.forEach {
-                    val isSelf = XposedHelpers.callMethod(it, "isFromSelf")
-                    if (isSelf.toString() != "true") {
-                        val type = XposedHelpers.getShortField(it, "msgType")
-                        if (type == 55.toShort()) {
-                            val content = XposedHelpers.getObjectField(it, "msgContent")?.toString()
-                            if (!TextUtils.isEmpty(content!!)) {
-                                if (content.contains(HookConstant.key)) {
-                                    val data = content.split(HookConstant.key)
-                                    XposedHelpers.setObjectField(it, "msgContent", data[0])
-                                    XposedHelpers.setShortField(it, "msgType", data[1].toShort())
-                                } else if (content.contains("blued-burn")) {
-                                    XposedHelpers.setShortField(it, "msgType", 24)
-                                } else if (content.contains("blued-chatfiles") && (content.contains("jpg") || content.contains("png"))) {
-                                    XposedHelpers.setShortField(it, "msgType", 2)
-                                } else if (content.contains("blued-chatfiles") && (content.contains("mp3"))) {
-                                    XposedHelpers.setShortField(it, "msgType", 3)
-                                } else {
-                                    XposedHelpers.setShortField(it, "msgType", 1)
+                if (SettingHelper(mContext).getIsSwitchRecall()) {
+                    val data = param!!.args[0] as List<Any>
+                    data.forEach {
+                        val isSelf = XposedHelpers.callMethod(it, "isFromSelf")
+                        if (isSelf.toString() != "true") {
+                            val type = XposedHelpers.getShortField(it, "msgType")
+                            if (type == 55.toShort()) {
+                                val content = XposedHelpers.getObjectField(it, "msgContent")?.toString()
+                                if (!TextUtils.isEmpty(content!!)) {
+                                    if (content.contains(HookConstant.key)) {
+                                        val data = content.split(HookConstant.key)
+                                        XposedHelpers.setObjectField(it, "msgContent", data[0])
+                                        XposedHelpers.setShortField(it, "msgType", data[1].toShort())
+                                    } else if (content.contains("blued-burn")) {
+                                        XposedHelpers.setShortField(it, "msgType", 24)
+                                    } else if (content.contains("blued-chatfiles") && (content.contains("jpg") || content.contains("png"))) {
+                                        XposedHelpers.setShortField(it, "msgType", 2)
+                                    } else if (content.contains("blued-chatfiles") && (content.contains("mp3"))) {
+                                        XposedHelpers.setShortField(it, "msgType", 3)
+                                    } else {
+                                        XposedHelpers.setShortField(it, "msgType", 1)
+                                    }
                                 }
+                                XposedHelpers.setAdditionalInstanceField(it, "notify", "He tried to recall this message.")
                             }
-                            XposedHelpers.setAdditionalInstanceField(it, "notify", "He tried to recall this message.")
                         }
                     }
                 }
@@ -137,17 +140,19 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
     private fun convertFlashPic() {
         XposedHelpers.findAndHookMethod(HookConstant.chatFragment, loader, "onMsgDataChanged", List::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                val data = param!!.args[0] as List<Any>
-                data.forEach {
-                    val isSelf = XposedHelpers.callMethod(it, "isFromSelf")
-                    if (isSelf.toString() != "true") {
-                        val type = XposedHelpers.getShortField(it, "msgType")
-                        if (type == 24.toShort()) {
-                            val instance = XposedHelpers.callStaticMethod(XposedHelpers.findClass(HookConstant.chatHelpler, loader), "a")
-                            val flashPath = XposedHelpers.callMethod(instance, "a", it).toString()
-                            XposedHelpers.setShortField(it, "msgType", 2)
-                            XposedHelpers.setObjectField(it, "msgContent", flashPath)
-                            XposedHelpers.setAdditionalInstanceField(it, "notify", "This picture is converted from a \"Snaps\".")
+                if (SettingHelper(mContext).getIsSwitchBurn()) {
+                    val data = param!!.args[0] as List<Any>
+                    data.forEach {
+                        val isSelf = XposedHelpers.callMethod(it, "isFromSelf")
+                        if (isSelf.toString() != "true") {
+                            val type = XposedHelpers.getShortField(it, "msgType")
+                            if (type == 24.toShort()) {
+                                val instance = XposedHelpers.callStaticMethod(XposedHelpers.findClass(HookConstant.chatHelpler, loader), "a")
+                                val flashPath = XposedHelpers.callMethod(instance, "a", it).toString()
+                                XposedHelpers.setShortField(it, "msgType", 2)
+                                XposedHelpers.setObjectField(it, "msgContent", flashPath)
+                                XposedHelpers.setAdditionalInstanceField(it, "notify", "This picture is converted from a \"Snaps\".")
+                            }
                         }
                     }
                 }

@@ -7,6 +7,7 @@
     <string name="failed">ACTIVATION FAILURE</string>
     <string name="setting">Setting</string>
     <string name="support">Support</string>
+    <string name="restart_setting">Because the settings are modified, it is suggested to restart the application</string>
 
     <!--pref-->
     <!--ads-->
