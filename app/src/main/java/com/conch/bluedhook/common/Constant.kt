@@ -31,18 +31,16 @@ object HookConstant {
     val bluedEntityA = "com.blued.android.http.parser.BluedEntityA"
     //my tab
     val homePageMore = "$processName.ui.discover.fragment.HomePageMore"
-
-    val flashPic = "$processName.ui.video.ShowVideoDestroyFragment"
-
     //basefragment
     val baseFragment = "com.blued.android.ui.BaseFragment"
     //chatHelper
     val chatHelpler = "$processName.ui.msg.controller.tools.ChatHelperV4"
     //chatManager
     val chatManager = "com.blued.android.chat.ChatManager"
-
     //chatfragment
     val chatFragment = "$processName.ui.msg.MsgChattingFragment"
+    //Preferences
+    val preferences = "$processName.utils.BluedPreferences"
 
     //md5Key-BenjaminKeyLastType
     val key = "61C0A240C4AF5F16DA0738512255BA16"

@@ -8,7 +8,10 @@
     <string name="setting">Setting</string>
     <string name="support">Support</string>
     <string name="restart_setting">Because the settings are modified, it is suggested to restart the application</string>
-
+    <string name="dialogTitle">Tips</string>
+    <string name="supportTips">Later we will evoke your application and visit the author\'s personal home page (this will leave the access footprint).</string>
+    <string name="sure">OK</string>
+    <string name="openApplication">Now you can open the application and contact the author</string>
     <!--pref-->
     <!--ads-->
     <string name="switch_ads_title">Remove Ads</string>

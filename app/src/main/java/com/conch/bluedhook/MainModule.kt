@@ -4,9 +4,11 @@ package com.conch.bluedhook
 import com.conch.bluedhook.common.HookConstant
 import com.conch.bluedhook.module.AdsModule
 import com.conch.bluedhook.module.ApplicationModule
+import com.conch.bluedhook.module.PreferenceModule
 import com.conch.bluedhook.module.MessageModule
-import com.conch.bluedhook.prefs_utils.SPHelper
 import de.robv.android.xposed.IXposedHookLoadPackage
+import de.robv.android.xposed.XC_MethodReplacement
+import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 
@@ -27,6 +29,9 @@ class MainModule : IXposedHookLoadPackage {
             AdsModule(mClassLoader, mContext).removeAds()
             //Message Module
             MessageModule(mClassLoader, mContext).hookMessage()
+            //Location Module
+            PreferenceModule(mClassLoader, mContext).modifyPreference()
         })
     }
+
 }

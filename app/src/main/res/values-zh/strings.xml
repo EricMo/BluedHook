@@ -8,6 +8,10 @@
     <string name="setting">设置</string>
     <string name="support">联系我</string>
     <string name="restart_setting">由于修改了设置,建议重启应用</string>
+    <string name="dialogTitle">提示</string>
+    <string name="supportTips">稍后我们将唤起你的主程序,然后访问作者的个人主页（这将会留下访问足迹）。</string>
+    <string name="sure">好</string>
+    <string name="openApplication">现在你可以打开应用联系作者了</string>
 
     <!--pref-->
     <!--ads-->
