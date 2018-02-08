@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-   >
+    >
 
     <SwitchPreference
         android:defaultValue="false"
@@ -9,24 +9,34 @@
         android:summary="@string/switch_ads_title_summary"
         android:title="@string/switch_ads_title"
         />
+
     <SwitchPreference
         android:defaultValue="false"
         android:key="switch_deposit"
         android:summary="@string/switch_deposit_title_summary"
         android:title="@string/switch_deposit_title"/>
+
     <SwitchPreference
         android:defaultValue="false"
         android:key="switch_game"
         android:summary="@string/switch_game_title_summary"
         android:title="@string/switch_game_title"/>
+
     <SwitchPreference
         android:defaultValue="false"
         android:key="switch_recall"
         android:summary="@string/switch_recall_title_summary"
         android:title="@string/switch_recall_title"/>
+
     <SwitchPreference
         android:defaultValue="false"
         android:key="switch_burn"
         android:summary="@string/switch_burning_title_summary"
         android:title="@string/switch_burning_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="switch_location"
+        android:summary="@string/switch_location_title_summary"
+        android:title="@string/switch_location_title"/>
 </PreferenceScreen>

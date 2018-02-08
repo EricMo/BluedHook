@@ -97,7 +97,7 @@ class MainActivity : View.OnClickListener, AppCompatActivity() {
                     intent.action = "android.intent.action.VIEW"
                     val cn = ComponentName("com.soft.blued", "com.soft.blued.ui.welcome.FirstActivity")
                     intent.component = cn
-                    intent.data = Uri.parse("blued://native.blued.cn?action=profile&enc=1&uid=9JKQZQ")
+                    intent.data = Uri.parse("blued://native.blued.cn?action=profile&enc=1&uid=aOvL2v")
                     startActivity(intent)
                     askSupport = true
                 }

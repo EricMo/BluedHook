@@ -11,7 +11,17 @@
     <string name="dialogTitle">提示</string>
     <string name="supportTips">稍后我们将唤起你的主程序,然后访问作者的个人主页（这将会留下访问足迹）。</string>
     <string name="sure">好</string>
+    <string name="noNeed">不需要</string>
     <string name="openApplication">现在你可以打开应用联系作者了</string>
+    <string name="location">选取位置</string>
+    <string name="use">使用</string>
+    <string name="latlngFormat">经纬度：%1$s,%2$s</string>
+    <string name="locationError">无法获取具体位置信息,请确认经纬度是否正确</string>
+    <string name="search">搜索</string>
+    <string name="searchHint">只支持(纬度,经度)</string>
+    <string name="openmapHint">你现在想要选择一个假的地址吗？</string>
+    <string name="locationNullHint">你还未选择一个地址</string>
+    <string name="noAddressHint">没有获取到地址,但这个经纬度有可能是真的</string>
 
     <!--pref-->
     <!--ads-->
@@ -36,4 +46,8 @@
     <!--burning-->
     <string name="switch_burning_title">闪照</string>
     <string name="switch_burning_title_summary">将 \"闪照\" 转换成普通图片</string>
+
+    <!--location-->
+    <string name="switch_location_title">位置</string>
+    <string name="switch_location_title_summary">使用伪定位,想去哪儿就去哪儿</string>
 </resources>
