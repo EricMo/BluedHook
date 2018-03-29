@@ -23,39 +23,39 @@ class SettingHelper(mContext: Context) {
     }
 
     fun getIsRemoveAds(): Boolean {
-        val isAds = SPHelper.getBoolean(switch_ads, false)
+//        val isAds = SPHelper.getBoolean(switch_ads, false)
 //        XposedBridge.log("isAds========:" + isAds)
-        return isAds
+        return true
     }
 
     fun getIsSwitchGame(): Boolean {
-        val removeGame = SPHelper.getBoolean(switch_game, false)
+//        val removeGame = SPHelper.getBoolean(switch_game, false)
 //        XposedBridge.log("removeGame========:" + removeGame)
-        return removeGame
+        return true
     }
 
     fun getIsSwitchDeposit(): Boolean {
-        val removeDeposit = SPHelper.getBoolean(switch_deposit, false)
+//        val removeDeposit = SPHelper.getBoolean(switch_deposit, false)
 //        XposedBridge.log("removeDeposit========:" + removeDeposit)
-        return removeDeposit
+        return true
     }
 
     fun getIsSwitchBurn(): Boolean {
-        val removeBurn = SPHelper.getBoolean(switch_burn, false)
+//        val removeBurn = SPHelper.getBoolean(switch_burn, false)
 //        XposedBridge.log("removeBurn========:" + removeBurn)
-        return removeBurn
+        return true
     }
 
     fun getIsSwitchRecall(): Boolean {
-        val removeRecall = SPHelper.getBoolean(switch_recall, false)
+//        val removeRecall = SPHelper.getBoolean(switch_recall, false)
 //        XposedBridge.log("removeRecall========:" + removeRecall)
-        return removeRecall
+        return true
     }
 
     fun getIsFakeLocation(): Boolean {
-        val fakeLocation = SPHelper.getBoolean(switch_location, false)
+//        val fakeLocation = SPHelper.getBoolean(switch_location, false)
 //        XposedBridge.log("fakeLocation========:" + fakeLocation)
-        return fakeLocation
+        return true
     }
 
     fun getLatitude(): String {

@@ -81,7 +81,6 @@ class MainActivity : View.OnClickListener, AppCompatActivity() {
             askSupport = false
             Snackbar.make(root, R.string.openApplication, Snackbar.LENGTH_LONG).show()
         }
-
     }
 
     /**
