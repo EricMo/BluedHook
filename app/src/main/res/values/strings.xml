@@ -14,6 +14,7 @@
     <string name="openApplication">Now you can open the application and contact the author</string>
     <string name="location">Select Location</string>
     <string name="use">Use</string>
+    <string name="openSetting">Open UI</string>
     <string name="latlngFormat">latlng：%1$s,%2$s</string>
     <string name="locationError">Unable to obtain specific location information, please confirm whether the latitude and longitude is correct</string>
     <string name="search">Search</string>
@@ -22,29 +23,4 @@
     <string name="openmapHint">Do you want to choose a fake location now?</string>
     <string name="locationNullHint">You have not yet chosen an location</string>
     <string name="noAddressHint">Unable to obtain address details, But this latitude and longitude may can be work</string>
-    <!--pref-->
-    <!--ads-->
-    <string name="switch_ads_title">Remove Ads</string>
-    <string name="switch_ads_title_summary">Remove almost ads in this App</string>
-
-    <!--Deposit-->
-    <string name="switch_deposit_title">Remove Deposit Center</string>
-    <string name="switch_deposit_title_summary">Remove \"Main-Me\" Deposit Center</string>
-
-    <!--Deposit-->
-    <string name="switch_game_title">Remove Game</string>
-    <string name="switch_game_title_summary">Remove \"Main-Me\" Game Center</string>
-
-
-    <!--recall-->
-    <string name="switch_recall_title">Anti Recall</string>
-    <string name="switch_recall_title_summary">Reproducing the message to be recalled</string>
-
-    <!--burning-->
-    <string name="switch_burning_title">Burning Picture</string>
-    <string name="switch_burning_title_summary">Turn the \"Burning Picture\" into a normal picture</string>
-
-    <!--location-->
-    <string name="switch_location_title">Location</string>
-    <string name="switch_location_title_summary">Use fake location.Go where you want to go</string>
 </resources>

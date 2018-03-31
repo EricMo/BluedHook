@@ -10,3 +10,4 @@
 .idea
 *.apk
 app/release/output.json
+.idea/modules.xml

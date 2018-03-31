@@ -12,11 +12,12 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import com.conch.bluedhook.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
-class MainActivity : View.OnClickListener, AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private var askSupport: Boolean = false
 
@@ -62,17 +63,6 @@ class MainActivity : View.OnClickListener, AppCompatActivity() {
             }
         }
         return@onOptionsItemSelected false
-    }
-
-    /**
-     * onClick
-     */
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-            R.id.setting -> {
-                startActivity(Intent(this, SettingActivity::class.java))
-            }
-        }
     }
 
     override fun onResume() {
