@@ -14,13 +14,7 @@
     <string name="noNeed">不需要</string>
     <string name="openSetting">开启用户界面</string>
     <string name="openApplication">现在你可以打开应用联系作者了</string>
-    <string name="location">选取位置</string>
-    <string name="use">使用</string>
-    <string name="latlngFormat">经纬度：%1$s,%2$s</string>
-    <string name="locationError">无法获取具体位置信息,请确认经纬度是否正确</string>
-    <string name="search">搜索</string>
-    <string name="searchHint">只支持(纬度,经度)</string>
-    <string name="openmapHint">你现在想要选择一个假的地址吗？</string>
-    <string name="locationNullHint">你还未选择一个地址</string>
-    <string name="noAddressHint">没有获取到地址,但这个经纬度有可能是真的</string>
+    <string name="extra_burning_pic_hint">该图片由闪照转换而成</string>
+    <string name="extra_burning_video_hint">该视频由闪照转换而成,点击即可播</string>
+    <string name="extra_recall_hint">对方试图撤回这条消息</string>
 </resources>

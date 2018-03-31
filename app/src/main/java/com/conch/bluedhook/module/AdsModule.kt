@@ -43,14 +43,14 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
      */
     private fun removeNearbyAds() {
         //Grid UI
-        XposedHelpers.findAndHookMethod(HookConstant.distanceGrid4Adapter, loader, "a", XposedHelpers.findClassIfExists(HookConstant.distanceGrid4AdapterHolder, loader), XposedHelpers.findClassIfExists(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(HookConstant.distanceGrid4Adapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceGrid4AdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java,object :XC_MethodHook(){
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 XposedBridge.log("This item's type is 2,so We do not need to perform this method")
                 param!!.result = null
             }
         })
         //List UI
-        XposedHelpers.findAndHookMethod(HookConstant.distanceListAdapter, loader, "a", XposedHelpers.findClassIfExists(HookConstant.distanceListAdapterHolder, loader), XposedHelpers.findClassIfExists(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(HookConstant.distanceListAdapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceListAdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java,object :XC_MethodHook(){
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 XposedBridge.log("This item's type is 2,so We do not need to perform this method")
                 param!!.result = null
@@ -92,7 +92,7 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
      * remove Money
      */
     private fun removeMoney() {
-        XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "b", object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "c", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 val classZ = param!!.thisObject.javaClass
                 val nField = classZ.getDeclaredField("o")

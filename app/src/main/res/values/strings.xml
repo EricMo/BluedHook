@@ -11,16 +11,10 @@
     <string name="dialogTitle">Tips</string>
     <string name="supportTips">Later we will evoke your application and visit the author\'s personal home page (this will leave the access footprint).</string>
     <string name="sure">OK</string>
-    <string name="openApplication">Now you can open the application and contact the author</string>
-    <string name="location">Select Location</string>
-    <string name="use">Use</string>
-    <string name="openSetting">Open UI</string>
-    <string name="latlngFormat">latlng：%1$s,%2$s</string>
-    <string name="locationError">Unable to obtain specific location information, please confirm whether the latitude and longitude is correct</string>
-    <string name="search">Search</string>
-    <string name="searchHint">Support:(latitude,longitude)</string>
     <string name="noNeed">No Need</string>
-    <string name="openmapHint">Do you want to choose a fake location now?</string>
-    <string name="locationNullHint">You have not yet chosen an location</string>
-    <string name="noAddressHint">Unable to obtain address details, But this latitude and longitude may can be work</string>
+    <string name="openSetting">Open UI</string>
+    <string name="openApplication">Now you can open the application and contact the author</string>
+    <string name="extra_burning_pic_hint">This picture is converted from a Burning Picture.</string>
+    <string name="extra_burning_video_hint">This video is converted from a Burning Video.Click to play</string>
+    <string name="extra_recall_hint">He tried to recall this message.</string>
 </resources>

@@ -9,7 +9,7 @@ android {
         release {
             keyAlias 'self'
             keyPassword '@oppoa100'
-            storeFile file('E:/workfile/keystore/selfkeystore.jks')
+            storeFile file('H:/keystore/selfkeystore.jks')
             storePassword '@oppoa100'
         }
     }
@@ -20,7 +20,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 3
-        versionName "1.0.2"
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

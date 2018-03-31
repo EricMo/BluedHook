@@ -4,9 +4,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
-import com.conch.bluedhook.common.HookConstant
-import com.conch.bluedhook.common.MessageHelper
-import com.conch.bluedhook.common.ReflectionUtils
+import com.conch.bluedhook.common.*
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -34,7 +32,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
      * receive the retract command，q.h=55,q.d=msgId
      */
     private fun hookReceiveRetractMsg() {
-        val q = XposedHelpers.findClassIfExists("com.blued.android.chat.core.pack.q", loader)
+        val q = XposedHelpers.findClass("com.blued.android.chat.core.pack.q", loader)
         XposedHelpers.findAndHookMethod("com.blued.android.chat.core.worker.chat.a", loader, "a", q, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 val q = param!!.args[0]
@@ -45,10 +43,10 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                 //if msgType is 55.so this is a recall message
                 if (type == 55.toLong()) {
                     //Find db,we need do something with database
-                    val chatManager = XposedHelpers.findClassIfExists(HookConstant.chatManager, loader)
+                    val chatManager = XposedHelpers.findClass(HookConstant.chatManager, loader)
                     val dbOperImpl = XposedHelpers.getStaticObjectField(chatManager, "dbOperImpl")
                     //check the session's msgList
-                    var sessionKey = XposedHelpers.callStaticMethod(XposedHelpers.findClassIfExists("com.blued.android.chat.data.SessionHeader", loader), "getSessionKey", XposedHelpers.getIntField(q, "b"), XposedHelpers.getLongField(q, "c"))
+                    var sessionKey = XposedHelpers.callStaticMethod(XposedHelpers.findClass("com.blued.android.chat.data.SessionHeader", loader), "getSessionKey", XposedHelpers.getIntField(q, "b"), XposedHelpers.getLongField(q, "c"))
                     val g = XposedHelpers.getObjectField(param.thisObject, "g") as java.util.Map<String, Any>
                     synchronized(g) {
                         sessionKey = g[sessionKey]
@@ -123,7 +121,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                                     XposedHelpers.setShortField(it, "msgType", 1)
                                 }
                             }
-                            XposedHelpers.setAdditionalInstanceField(it, "notify", "He tried to recall this message.")
+                            XposedHelpers.setAdditionalInstanceField(it, "notify", NotifyConstant.getRECALL_MESSAGE())
                         }
                     }
                 }
@@ -147,7 +145,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                             val flashPath = XposedHelpers.callMethod(instance, "a", it).toString()
                             XposedHelpers.setShortField(it, "msgType", 2)
                             XposedHelpers.setObjectField(it, "msgContent", flashPath)
-                            XposedHelpers.setAdditionalInstanceField(it, "notify", "This picture is converted from a \"Snaps\".")
+                            XposedHelpers.setAdditionalInstanceField(it, "notify", NotifyConstant.getRECALL_BURNING_PIC())
                         }
                     }
                 }
@@ -168,10 +166,16 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                 val data = XposedHelpers.getObjectField(param.thisObject, "a") as List<Any>
                 val index = param.args[0] as Int
                 val message = data[index]
-                val notifyContent = XposedHelpers.getAdditionalInstanceField(message, "notify")?.toString()
-                if (!notifyContent.isNullOrEmpty()) {
-                    val notify = MessageHelper.makeNotifyTextView(mContext, notifyContent!!)
-                    root.addView(notify)
+                val notifyType = XposedHelpers.getAdditionalInstanceField(message, "notify")?.toString()?.toInt()
+                when (notifyType) {
+                    NotifyConstant.getRECALL_MESSAGE() -> {
+                        val notify = LayoutHelper.makeNotifyTextView(mContext, ResourcesProvider.extra_recall_hint)
+                        root.addView(notify)
+                    }
+                    NotifyConstant.getRECALL_BURNING_PIC() -> {
+                        val notify = LayoutHelper.makeNotifyTextView(mContext, ResourcesProvider.extra_burning_pic_hint)
+                        root.addView(notify)
+                    }
                 }
                 param.result = root
             }

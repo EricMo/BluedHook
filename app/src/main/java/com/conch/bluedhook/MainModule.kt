@@ -3,6 +3,7 @@ package com.conch.bluedhook
 
 import android.content.res.XModuleResources
 import com.conch.bluedhook.common.HookConstant
+import com.conch.bluedhook.common.ResourcesProvider
 import com.conch.bluedhook.module.AdsModule
 import com.conch.bluedhook.module.ApplicationModule
 import com.conch.bluedhook.module.LayoutModule
@@ -40,9 +41,9 @@ class MainModule : IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookIni
         }
         ApplicationModule.hookApplicationContext(lpparam, { mContext, mClassLoader ->
             //ad Module
-//            AdsModule(mClassLoader, mContext).removeAds()
+            AdsModule(mClassLoader, mContext).removeAds()
             //Message Module
-//            MessageModule(mClassLoader, mContext).hookMessage()
+            MessageModule(mClassLoader, mContext).hookMessage()
         })
     }
 
@@ -54,8 +55,11 @@ class MainModule : IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookIni
         if (HookConstant.processName != resparam?.packageName) {
             return
         }
+        val xModuleRes = XModuleResources.createInstance(MODULE_PATH, resparam.res)
+        //load string res
+        ResourcesProvider.initProvider(xModuleRes)
         //u can hook layout and use res
-        LayoutModule(XModuleResources.createInstance(MODULE_PATH, resparam.res), resparam).hookLayout()
+        LayoutModule(xModuleRes, resparam).hookLayout()
     }
 
 

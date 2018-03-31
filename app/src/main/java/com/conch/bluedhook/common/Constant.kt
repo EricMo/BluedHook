@@ -28,7 +28,7 @@ object HookConstant {
     //discoverSquareUI
     val discoverSquareFragment = "$processName.ui.discover.fragment.DiscoverySquareFragment"
     //BluedEntityA
-    val bluedEntityA = "com.blued.android.http.parser.BluedEntityA"
+    val bluedEntityA = "com.blued.android.similarity.http.parser.BluedEntityA"
     //my tab
     val homePageMore = "$processName.ui.discover.fragment.HomePageMore"
     //basefragment

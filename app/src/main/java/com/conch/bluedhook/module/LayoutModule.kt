@@ -8,6 +8,8 @@ import android.widget.LinearLayout
 import com.conch.bluedhook.common.HookConstant
 import com.conch.bluedhook.common.LayoutHelper
 import com.conch.bluedhook.common.SelfHookConstant
+import de.robv.android.xposed.XposedBridge
+import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_InitPackageResources
 import de.robv.android.xposed.callbacks.XC_LayoutInflated
 import kotlin.jvm.internal.Intrinsics
@@ -27,17 +29,20 @@ class LayoutModule(private val resources: XModuleResources, private val resParam
     private fun addSettingDoor() {
         resParam.res.hookLayout(HookConstant.processName, "layout", "fragment_homepage_more", object : XC_LayoutInflated() {
             override fun handleLayoutInflated(liparam: LayoutInflatedParam?) {
-                val rootView = liparam?.view as LinearLayout
-                val settingView = LayoutHelper.layoutHomeMoreItem(resources, liparam.view.context)
+                val layout = liparam!!.view.findViewById(liparam.res.getIdentifier("ll_help_feedback", "id", HookConstant.processName)).parent as LinearLayout
+                val settingView = LayoutHelper.layoutHomeMoreItem(liparam.res, resources, layout.context)
                 settingView.setOnClickListener {
                     openSelfModule(it.context)
                 }
-                rootView.addView(settingView)
+                layout.addView(settingView)
             }
         })
     }
 
     /**
+     *
+     * chat_notice_notify_content_style
+     * shape_common_round_graylighter_solid
      * @Author Benjamin
      * @Date 2018年03月30日 17:38:19
      * @param context
