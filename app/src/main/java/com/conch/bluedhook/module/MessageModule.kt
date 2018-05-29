@@ -24,6 +24,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         convertRetractMsgToNormal()
         convertFlashPic()
         convertNotify()
+        // unlockSelf()
         //  messageInfo()
     }
 
@@ -178,6 +179,20 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                     }
                 }
                 param.result = root
+            }
+        })
+    }
+
+
+    private fun unlockSelf() {
+        XposedHelpers.findAndHookMethod(HookConstant.albumManager, loader, "a",
+                Boolean::class.java, List::class.java, object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                super.afterHookedMethod(param)
+                val result = param?.result as List<*>
+                result.forEach {
+                    ReflectionUtils.getFieldsValue(it)
+                }
             }
         })
     }

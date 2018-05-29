@@ -29,7 +29,7 @@ object HookConstant {
     val discoverSquareFragment = "$processName.ui.discover.fragment.DiscoverySquareFragment"
     //BluedEntityA
     val bluedEntityA = "com.blued.android.similarity.http.parser.BluedEntityA"
-    //my tab
+    //homePageMore
     val homePageMore = "$processName.ui.discover.fragment.HomePageMore"
     //basefragment
     val baseFragment = "com.blued.android.ui.BaseFragment"
@@ -39,6 +39,9 @@ object HookConstant {
     val chatManager = "com.blued.android.chat.ChatManager"
     //chatfragment
     val chatFragment = "$processName.ui.msg.MsgChattingFragment"
+    //
+    val albumManager = "$processName.ui.user.adapter.AlbumDataManager"
+
     //Preferences
     val preferences = "$processName.utils.BluedPreferences"
 

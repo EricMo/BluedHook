@@ -15,6 +15,6 @@
     <string name="openSetting">开启用户界面</string>
     <string name="openApplication">现在你可以打开应用联系作者了</string>
     <string name="extra_burning_pic_hint">该图片由闪照转换而成</string>
-    <string name="extra_burning_video_hint">该视频由闪照转换而成,点击即可播</string>
+    <string name="extra_burning_video_hint">该视频由销毁视频转换而成,点击即可播放</string>
     <string name="extra_recall_hint">对方试图撤回这条消息</string>
 </resources>

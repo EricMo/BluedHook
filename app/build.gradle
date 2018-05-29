@@ -5,34 +5,22 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    signingConfigs {
-        release {
-            keyAlias 'self'
-            keyPassword '@oppoa100'
-            storeFile file('H:/keystore/selfkeystore.jks')
-            storePassword '@oppoa100'
-        }
-    }
     compileSdkVersion 25
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.conch.bluedhook"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
 
         debug{
-            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     sourceSets {

@@ -13,7 +13,6 @@ import de.robv.android.xposed.XposedHelpers
  */
 class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mContext) {
     fun removeAds() {
-        XposedBridge.log("adsModule loads successfully")
         removeWelcomeAds()
         removeNearbyAds()
         removeSquareAds()

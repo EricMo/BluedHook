@@ -1,18 +1,9 @@
 package com.conch.bluedhook.common
 
-import android.content.res.XModuleResources
-import com.conch.bluedhook.R
-
 
 object ResourcesProvider {
-
-    lateinit var extra_burning_pic_hint: String
-    lateinit var extra_burning_video_hint: String
-    lateinit var extra_recall_hint: String
-
-    fun initProvider(res: XModuleResources) {
-        extra_recall_hint = res.getString(R.string.extra_recall_hint)
-        extra_burning_pic_hint = res.getString(R.string.extra_burning_pic_hint)
-        extra_burning_video_hint = res.getString(R.string.extra_burning_video_hint)
-    }
+    var extra_burning_pic_hint: String = "该图片由闪照转换而成"
+    var extra_burning_video_hint: String = "该视频由销毁视频转换而成,点击即可播放"
+    var extra_recall_hint: String = "对方试图撤回这条消息"
+    var openSetting:String="开启用户界面"
 }
