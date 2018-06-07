@@ -22,8 +22,8 @@ class DynamicLayoutModule(loader: ClassLoader, mContext: Context) : BaseModule(l
         XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "c", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 if (XposedHelpers.getAdditionalStaticField(param?.thisObject, "hasAdd") == null) {
-                    //ll_help_feedback = 2131756111
-                    val feedback = XposedHelpers.getObjectField(param?.thisObject, "x") as View
+                    //ll_help_feedback = 2131625013
+                    val feedback = XposedHelpers.getObjectField(param?.thisObject, "y") as View
                     val parent = feedback.parent as LinearLayout
                     val item = LayoutHelper.layoutHomeMoreItem(mContext)
                     item.setOnClickListener {

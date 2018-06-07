@@ -29,18 +29,20 @@ object LayoutHelper {
     @SuppressLint("ResourceType")
     fun layoutHomeMoreItem(context: Context): View {
         //create a item
+        //selector_textview_bgcolor
         val root = LinearLayout(context)
         root.gravity = Gravity.CENTER_VERTICAL
         root.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Density.dip2px(context, 49.0f))
         root.setPadding(Density.dip2px(context, 15.0f), 0, Density.dip2px(context, 15.0f), 0)
-        root.setBackgroundResource(2130838879)
+        root.setBackgroundResource(2130838915)
 
         //left icon
+        //icon_more_setting
         val icon = ImageView(context)
         val iconParams = LinearLayout.LayoutParams(Density.dip2px(context, 20.0f), Density.dip2px(context, 20.0f))
         iconParams.rightMargin = Density.dip2px(context, 15.0f)
         icon.layoutParams = iconParams
-        icon.setImageResource(2130838411)
+        icon.setImageResource(2130838301)
         root.addView(icon)
         //center title
         val title = TextView(context)
@@ -52,9 +54,10 @@ object LayoutHelper {
         root.addView(title, titleParams)
 
         //right arrow
+        //icon_right_arrow_my
         val iconRight = ImageView(context)
         iconRight.scaleType = ImageView.ScaleType.FIT_XY
-        iconRight.setImageResource(2130838178)
+        iconRight.setImageResource(2131362315)
         root.addView(iconRight, LinearLayout.LayoutParams(Density.dip2px(context, 7.0f), Density.dip2px(context, 11.0f)))
         return root
     }
@@ -64,8 +67,8 @@ object LayoutHelper {
      * @Author Benjamin
      * @Date 2018年05月29日 16:27:47
      * chat_notice_notify_content_style
-     * shape_common_round_graylighter_solid
      * sara_e
+     * shape_common_round_graylighter_solid
      * @return
      */
     @SuppressLint("ResourceType")
@@ -76,9 +79,9 @@ object LayoutHelper {
         layoutParams.gravity = 1
         textView.tag = 1
         textView.textSize = 12.0f
-        textView.setBackgroundResource(2130838931)
+        textView.setBackgroundResource(2130838978)
         textView.text = s
-        textView.setTextColor(ContextCompat.getColor(context, 2131624270))
+        textView.setTextColor(ContextCompat.getColor(context, 2131493189))
         textView.gravity = 1
         textView.setPadding(20, 5, 20, 5)
         textView.layoutParams = layoutParams

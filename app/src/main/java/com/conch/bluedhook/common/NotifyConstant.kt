@@ -22,4 +22,5 @@ object NotifyConstant {
     fun getRECALL_MESSAGE(): Int {
         return NotifyConstant.RECALL_MESSAGE
     }
+
 }

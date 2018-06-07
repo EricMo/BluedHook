@@ -42,14 +42,14 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
      */
     private fun removeNearbyAds() {
         //Grid UI
-        XposedHelpers.findAndHookMethod(HookConstant.distanceGrid4Adapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceGrid4AdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java,object :XC_MethodHook(){
+        XposedHelpers.findAndHookMethod(HookConstant.distanceGrid4Adapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceGrid4AdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 XposedBridge.log("This item's type is 2,so We do not need to perform this method")
                 param!!.result = null
             }
         })
         //List UI
-        XposedHelpers.findAndHookMethod(HookConstant.distanceListAdapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceListAdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java,object :XC_MethodHook(){
+        XposedHelpers.findAndHookMethod(HookConstant.distanceListAdapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceListAdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 XposedBridge.log("This item's type is 2,so We do not need to perform this method")
                 param!!.result = null
@@ -89,16 +89,18 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
 
     /**
      * remove Money
+     * ll_charge
+     * ll_rich_rank
      */
     private fun removeMoney() {
         XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "c", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 val classZ = param!!.thisObject.javaClass
-                val nField = classZ.getDeclaredField("o")
+                val nField = classZ.getDeclaredField("p")
                 nField.isAccessible = true
                 (nField.get(param.thisObject) as View).visibility = GONE
 
-                val qField = classZ.getDeclaredField("r")
+                val qField = classZ.getDeclaredField("s")
                 qField.isAccessible = true
                 (qField.get(param.thisObject) as View).visibility = GONE
             }

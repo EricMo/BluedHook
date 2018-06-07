@@ -7,6 +7,8 @@ package com.conch.bluedhook.common
 object HookConstant {
     //the main process
     val processName = "com.soft.blued"
+    // msgFragment
+    val msgFragment = "$processName.ui.msg.MsgFragment"
     //msg adapter
     val msgAdapter = "$processName.ui.msg.adapter.MessageChatAdapter"
     //chat model
@@ -44,6 +46,9 @@ object HookConstant {
 
     //Preferences
     val preferences = "$processName.utils.BluedPreferences"
+
+    //userInfo
+    val userInfo="$processName.user.UserInfo"
 
     //md5Key-BenjaminKeyLastType
     val key = "61C0A240C4AF5F16DA0738512255BA16"
