@@ -4,10 +4,7 @@ package com.conch.bluedhook
 import android.util.Log
 import com.conch.bluedhook.common.HookConstant
 import com.conch.bluedhook.common.SelfHookConstant
-import com.conch.bluedhook.module.AdsModule
-import com.conch.bluedhook.module.ApplicationModule
-import com.conch.bluedhook.module.DynamicLayoutModule
-import com.conch.bluedhook.module.MessageModule
+import com.conch.bluedhook.module.*
 import de.robv.android.xposed.*
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
@@ -44,6 +41,8 @@ class MainModule : IXposedHookLoadPackage {
                 MessageModule(mClassLoader, mContext).hookMessage()
                 //layout
                 DynamicLayoutModule(mClassLoader, mContext).layout()
+                //vip
+                VipModule(mClassLoader,mContext).hookVip()
             })
         }
     }

@@ -44,6 +44,10 @@ object HookConstant {
     //
     val albumManager = "$processName.ui.user.adapter.AlbumDataManager"
 
+    val visitorFragment="$processName.ui.find.fragment.MyVisitorFragment"
+
+    val visitorAdapter="$processName.ui.find.adapter.VisitorListAdapter"
+
     //Preferences
     val preferences = "$processName.utils.BluedPreferences"
 

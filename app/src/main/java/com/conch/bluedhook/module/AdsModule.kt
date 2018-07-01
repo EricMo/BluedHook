@@ -3,7 +3,10 @@ package com.conch.bluedhook.module
 import android.content.Context
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.ViewGroup
 import com.conch.bluedhook.common.HookConstant
+import com.conch.bluedhook.common.ReflectionUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -18,6 +21,7 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         removeSquareAds()
         removeMoney()
         removeGameCenter()
+        removeVisitor()
     }
 
     /**
@@ -103,6 +107,25 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
                 val qField = classZ.getDeclaredField("s")
                 qField.isAccessible = true
                 (qField.get(param.thisObject) as View).visibility = GONE
+            }
+        })
+    }
+
+    /**
+     * remove visitor
+     *
+     */
+    private fun removeVisitor() {
+        XposedHelpers.findAndHookMethod(HookConstant.visitorAdapter, loader, "a", List::class.java, Int::class.java, object : XC_MethodHook() {
+            override fun beforeHookedMethod(param: MethodHookParam?) {
+                val data = param!!.args[0] as MutableList<*>
+                (data).forEachIndexed { index, it ->
+                    if (XposedHelpers.getIntField(it, "is_ads") == 1) {
+                        XposedBridge.log("This is ads,So remove it")
+                        data.removeAt(index)
+                    }
+                }
+                param.args[0] = data
             }
         })
     }

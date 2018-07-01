@@ -26,8 +26,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         convertRetractMsgToNormal()
         convertFlashPic()
         convertNotify()
-        secretlyMsg()
-        // unlockSelf()
+//        unlockSelf()
         // messageInfo()
     }
 
@@ -183,40 +182,6 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
                     }
                 }
                 param.result = root
-            }
-        })
-    }
-
-    /**
-     * @Description: secretly look
-     * onItemLongClick(AdapterView<?> paramAdapterView, View paramView, int paramInt, long paramLong)
-     * @return
-     */
-    private fun secretlyMsg() {
-        XposedHelpers.findAndHookMethod(HookConstant.msgFragment, loader, "onItemLongClick", AdapterView::class.java,
-                View::class.java, Int::class.java, Long::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                //find userinfo class
-                val userInfo = XposedHelpers.findClassIfExists(HookConstant.userInfo, loader)
-                //create userinfo
-                XposedHelpers.callStaticMethod(userInfo, "m")
-                //change vip_grade to 2
-                XposedHelpers.findAndHookMethod(userInfo, "p", object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam?) {
-                        //login info
-                        val loginResult = param!!.result
-                        //change to vip
-                        XposedHelpers.setIntField(loginResult, "vip_grade", 2)
-                        // is toast
-                        if (XposedHelpers.getAdditionalStaticField(loginResult, "toast") != 1) {
-                            //Notify user
-                            Toast.makeText(mContext, ResourcesProvider.extra_secretly_hint, Toast.LENGTH_SHORT).show()
-                        }
-                        //mark toast
-                        XposedHelpers.setAdditionalStaticField(loginResult, "toast", 1)
-                    }
-                })
-
             }
         })
     }

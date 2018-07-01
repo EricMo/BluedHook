@@ -34,7 +34,7 @@ object LayoutHelper {
         root.gravity = Gravity.CENTER_VERTICAL
         root.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Density.dip2px(context, 49.0f))
         root.setPadding(Density.dip2px(context, 15.0f), 0, Density.dip2px(context, 15.0f), 0)
-        root.setBackgroundResource(2130838915)
+        root.setBackgroundResource(2130838933)
 
         //left icon
         //icon_more_setting
@@ -42,7 +42,7 @@ object LayoutHelper {
         val iconParams = LinearLayout.LayoutParams(Density.dip2px(context, 20.0f), Density.dip2px(context, 20.0f))
         iconParams.rightMargin = Density.dip2px(context, 15.0f)
         icon.layoutParams = iconParams
-        icon.setImageResource(2130838301)
+        icon.setImageResource(2130838314)
         root.addView(icon)
         //center title
         val title = TextView(context)
@@ -57,7 +57,7 @@ object LayoutHelper {
         //icon_right_arrow_my
         val iconRight = ImageView(context)
         iconRight.scaleType = ImageView.ScaleType.FIT_XY
-        iconRight.setImageResource(2131362315)
+        iconRight.setImageResource(2131362317)
         root.addView(iconRight, LinearLayout.LayoutParams(Density.dip2px(context, 7.0f), Density.dip2px(context, 11.0f)))
         return root
     }
@@ -79,9 +79,9 @@ object LayoutHelper {
         layoutParams.gravity = 1
         textView.tag = 1
         textView.textSize = 12.0f
-        textView.setBackgroundResource(2130838978)
+        textView.setBackgroundResource(2130838996)
         textView.text = s
-        textView.setTextColor(ContextCompat.getColor(context, 2131493189))
+        textView.setTextColor(ContextCompat.getColor(context, 2131493190))
         textView.gravity = 1
         textView.setPadding(20, 5, 20, 5)
         textView.layoutParams = layoutParams
