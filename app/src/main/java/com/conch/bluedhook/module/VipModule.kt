@@ -4,6 +4,7 @@ import android.content.Context
 import com.conch.bluedhook.common.HookConstant
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
+import java.lang.StringBuilder
 
 /**
  * @Description vip
@@ -12,7 +13,29 @@ import de.robv.android.xposed.XposedHelpers
  **/
 class VipModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mContext) {
     fun hookVip() {
+        unlockSelfFirst()
         unlockVIP()
+    }
+
+
+    private fun unlockSelfFirst() {
+        XposedHelpers.findAndHookMethod(HookConstant.albumManager, loader, "a",
+                Boolean::class.java, List::class.java, object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                super.afterHookedMethod(param)
+                val result = param?.result as List<*>
+                result.forEach {
+                    if (XposedHelpers.getIntField(it, "album_status") == 0) {
+                        XposedHelpers.setIntField(it, "album_status", 1)
+                        val picStr = XposedHelpers.getObjectField(it, "album_pic") as String
+                        val builder = StringBuilder(picStr)
+                        builder.append("!original.png")
+                        XposedHelpers.setObjectField(it, "album_pic", builder.toString())
+                    }
+
+                }
+            }
+        })
     }
 
     private fun unlockVIP() {

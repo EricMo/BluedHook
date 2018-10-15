@@ -11,6 +11,8 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import java.lang.StringBuilder
+import kotlin.TypeCastException
+
 
 /**
  * Created by Benjamin on 2017/11/23.
@@ -26,7 +28,6 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         convertRetractMsgToNormal()
         convertFlashPic()
         convertNotify()
-//        unlockSelf()
         // messageInfo()
     }
 
@@ -186,19 +187,6 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         })
     }
 
-
-    private fun unlockSelf() {
-        XposedHelpers.findAndHookMethod(HookConstant.albumManager, loader, "a",
-                Boolean::class.java, List::class.java, object : XC_MethodHook() {
-            override fun afterHookedMethod(param: MethodHookParam?) {
-                super.afterHookedMethod(param)
-                val result = param?.result as List<*>
-                result.forEach {
-                    ReflectionUtils.getFieldsValue(it)
-                }
-            }
-        })
-    }
 
     private fun messageInfo() {
         val chatModel = XposedHelpers.findClass(HookConstant.chatModel, loader)

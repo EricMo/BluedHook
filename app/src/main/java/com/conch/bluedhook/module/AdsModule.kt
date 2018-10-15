@@ -1,10 +1,13 @@
 package com.conch.bluedhook.module
 
 import android.content.Context
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import com.conch.bluedhook.common.HookConstant
 import com.conch.bluedhook.common.ReflectionUtils
 import de.robv.android.xposed.XC_MethodHook
@@ -19,7 +22,8 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         removeWelcomeAds()
         removeNearbyAds()
         removeSquareAds()
-        removeMoney()
+        //removeVipDoor()
+        //removeMoney()
         removeGameCenter()
         removeVisitor()
     }
@@ -41,8 +45,8 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
 
     /**
      * remove nearby ads
-     *   public static final int fl_ad = 2131559167;
-     *   public static final int fl_ads = 2131558875;
+     *   public static final int fl_ad = 2131624939;
+     *   public static final int fl_ads = 2131624627;
      */
     private fun removeNearbyAds() {
         //Grid UI
@@ -75,40 +79,66 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
     }
 
     /**
-     * remove GameCenter
+     * remove vip door
+     * ll_vip_bg
+     * Maybe somebody needs vip.So we don't need to do this.
      */
-    private fun removeGameCenter() {
-        XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "a", List::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                param!!.args[0] = null
+    private fun removeVipDoor() {
+        XposedHelpers.findAndHookMethod(HookConstant.mineFragment, loader, "j", object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                val classZ = param!!.thisObject.javaClass
+                val nField = classZ.getDeclaredField("y")
+                nField.isAccessible = true
+                (nField.get(param.thisObject) as View).visibility = GONE
             }
         })
-        XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "b", List::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                param!!.args[0] = null
-            }
-        })
-
     }
 
     /**
-     * remove Money
-     * ll_charge
-     * ll_rich_rank
+     * remove GameCenter
      */
-    private fun removeMoney() {
-        XposedHelpers.findAndHookMethod(HookConstant.homePageMore, loader, "c", object : XC_MethodHook() {
+    private fun removeGameCenter() {
+        XposedHelpers.findAndHookMethod(HookConstant.mineFragment, loader, "b", List::class.java, object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 val classZ = param!!.thisObject.javaClass
-                val nField = classZ.getDeclaredField("p")
+                val nField = classZ.getDeclaredField("T")
                 nField.isAccessible = true
-                (nField.get(param.thisObject) as View).visibility = GONE
-
-                val qField = classZ.getDeclaredField("s")
-                qField.isAccessible = true
-                (qField.get(param.thisObject) as View).visibility = GONE
+                val data = (nField.get(param.thisObject) as MutableList<*>)
+                //remove game center
+                val ext = data.filter {
+                    //Because the id will be same,so i choice to use title.this will be wrong in english
+                    val id = XposedHelpers.getObjectField(it, "id")
+                    val title = XposedHelpers.getObjectField(it, "title")
+                    if (title != null) {
+                        if (TextUtils.equals("蓝调生活", title as String)) {
+                            XposedHelpers.setBooleanField(it, "isLineBig", true)
+                        }
+                        TextUtils.equals("游戏中心", title)
+                    } else {
+                        false
+                    }
+                }
+                data.removeAll(ext)
             }
         })
+    }
+
+    /**
+     * ll_add
+     */
+    private fun removeMoney() {
+        XposedHelpers.findAndHookMethod(HookConstant.mineFragment, loader, "onCreateView",
+                LayoutInflater::class.java,
+                ViewGroup::class.java,
+                Bundle::class.java, object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                val classZ = param!!.thisObject.javaClass
+                val nField = classZ.getDeclaredField("c")
+                nField.isAccessible = true
+                (nField.get(param.thisObject) as View).findViewById(2131625267).visibility = View.GONE
+            }
+        })
+
     }
 
     /**

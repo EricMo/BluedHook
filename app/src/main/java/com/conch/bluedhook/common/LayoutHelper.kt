@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.view.Gravity
@@ -34,7 +35,7 @@ object LayoutHelper {
         root.gravity = Gravity.CENTER_VERTICAL
         root.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Density.dip2px(context, 49.0f))
         root.setPadding(Density.dip2px(context, 15.0f), 0, Density.dip2px(context, 15.0f), 0)
-        root.setBackgroundResource(2130838933)
+        root.setBackgroundResource(2130839050)
 
         //left icon
         //icon_more_setting
@@ -42,7 +43,7 @@ object LayoutHelper {
         val iconParams = LinearLayout.LayoutParams(Density.dip2px(context, 20.0f), Density.dip2px(context, 20.0f))
         iconParams.rightMargin = Density.dip2px(context, 15.0f)
         icon.layoutParams = iconParams
-        icon.setImageResource(2130838314)
+        icon.setImageResource(2130838359)
         root.addView(icon)
         //center title
         val title = TextView(context)
@@ -79,9 +80,9 @@ object LayoutHelper {
         layoutParams.gravity = 1
         textView.tag = 1
         textView.textSize = 12.0f
-        textView.setBackgroundResource(2130838996)
+        textView.setBackgroundResource(2130839136)
         textView.text = s
-        textView.setTextColor(ContextCompat.getColor(context, 2131493190))
+        textView.setTextColor(ContextCompat.getColor(context, 2131624274))
         textView.gravity = 1
         textView.setPadding(20, 5, 20, 5)
         textView.layoutParams = layoutParams
@@ -100,6 +101,7 @@ object LayoutHelper {
         Intrinsics.checkParameterIsNotNull(context, "mContext")
         val intent = Intent("android.intent.action.MAIN")
         intent.addCategory("android.intent.category.LAUNCHER")
+        intent.flags = FLAG_ACTIVITY_NEW_TASK
         intent.action = "android.intent.action.VIEW"
         intent.component = ComponentName(SelfHookConstant.processName, SelfHookConstant.mainActivity)
         context.startActivity(intent)

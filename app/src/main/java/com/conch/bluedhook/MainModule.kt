@@ -23,18 +23,19 @@ class MainModule : IXposedHookLoadPackage {
         }
         //active self
         if (lpparam.packageName == SelfHookConstant.processName) {
-            ApplicationModule.hookApplicationContext(lpparam, { mContext, mClassLoader ->
+            ApplicationModule.hookApplicationContext(lpparam) { mContext, mClassLoader ->
                 XposedHelpers.findAndHookMethod(SelfHookConstant.mainActivity, mClassLoader, "isActivated", object : XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam?) {
                         Log.d("fake", "just for vxp")
                         param!!.result = true
                     }
                 })
-            })
+            }
         }
         //hook other
         if (lpparam.packageName == HookConstant.processName) {
-            ApplicationModule.hookApplicationContext(lpparam, { mContext, mClassLoader ->
+
+            ApplicationModule.hookApplicationContext(lpparam) { mContext, mClassLoader ->
                 //ad Module
                 AdsModule(mClassLoader, mContext).removeAds()
                 //Message Module
@@ -43,7 +44,7 @@ class MainModule : IXposedHookLoadPackage {
                 DynamicLayoutModule(mClassLoader, mContext).layout()
                 //vip
                 VipModule(mClassLoader,mContext).hookVip()
-            })
+            }
         }
     }
 }

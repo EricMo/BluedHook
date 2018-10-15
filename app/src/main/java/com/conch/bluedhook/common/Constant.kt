@@ -20,11 +20,11 @@ object HookConstant {
     //NearByWithAds
     val nearByWithAds = "$processName.ui.find.model.NearByWithAds"
     //DistanceUI{Grid}
-    val distanceGrid4Adapter = "$processName.ui.find.adapter.FriendsGrid4Adapter"
+    val distanceGrid4Adapter = "$processName.ui.find.adapter.PeopleGrid4Adapter"
     //GridViewHolder
     val distanceGrid4AdapterHolder = "$distanceGrid4Adapter\$ViewHolder"
     //DistanceUI{List}
-    val distanceListAdapter = "$processName.ui.find.adapter.FriendsListAdapter"
+    val distanceListAdapter = "$processName.ui.find.adapter.PeopleListAdapter"
     //ListViewHolder
     val distanceListAdapterHolder = "$distanceListAdapter\$ViewHolder"
     //discoverSquareUI
@@ -32,7 +32,7 @@ object HookConstant {
     //BluedEntityA
     val bluedEntityA = "com.blued.android.similarity.http.parser.BluedEntityA"
     //homePageMore
-    val homePageMore = "$processName.ui.discover.fragment.HomePageMore"
+    val mineFragment = "$processName.ui.discover.fragment.MineFragment"
     //basefragment
     val baseFragment = "com.blued.android.ui.BaseFragment"
     //chatHelper
@@ -53,6 +53,14 @@ object HookConstant {
 
     //userInfo
     val userInfo="$processName.user.UserInfo"
+
+    //_more_columns
+    val _more_columns="$processName.ui.discover.model.MineEntryInfo\$_more_columns"
+
+    //
+    val colAdapter="$processName.ui.discover.adapter.MineEntryAdapter"
+
+    val colViewHolder="$colAdapter\$ViewHolder"
 
     //md5Key-BenjaminKeyLastType
     val key = "61C0A240C4AF5F16DA0738512255BA16"
