@@ -16,17 +16,15 @@ object HookConstant {
     //chatting ui
     val chatUI = "$processName.ui.msg.MsgChattingFragment"
     //welcomeUI
-    val welcomeUI = "$processName.ui.welcome.WelcomeFragment"
+    val welcomeUI = "$processName.ui.welcome.WelcomeFragmentNew"
     //NearByWithAds
     val nearByWithAds = "$processName.ui.find.model.NearByWithAds"
     //DistanceUI{Grid}
-    val distanceGrid4Adapter = "$processName.ui.find.adapter.PeopleGrid4Adapter"
-    //GridViewHolder
-    val distanceGrid4AdapterHolder = "$distanceGrid4Adapter\$ViewHolder"
-    //DistanceUI{List}
-    val distanceListAdapter = "$processName.ui.find.adapter.PeopleListAdapter"
-    //ListViewHolder
-    val distanceListAdapterHolder = "$distanceListAdapter\$ViewHolder"
+    val peopleGridQuickAdapter = "$processName.ui.find.adapter.PeopleGridQuickAdapter"
+    //BaseViewHolder
+    val baseViewHolder = "com.chad.library.adapter.base.BaseViewHolder"
+    //find
+    val userFindResult = "$processName.ui.find.model.UserFindResult"
     //discoverSquareUI
     val discoverSquareFragment = "$processName.ui.discover.fragment.DiscoverySquareFragment"
     //BluedEntityA

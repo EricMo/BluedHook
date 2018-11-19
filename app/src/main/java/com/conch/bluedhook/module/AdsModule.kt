@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
-import android.widget.Toast
 import com.conch.bluedhook.common.HookConstant
-import com.conch.bluedhook.common.ReflectionUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -49,20 +47,18 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
      *   public static final int fl_ads = 2131624627;
      */
     private fun removeNearbyAds() {
+        val baseViewHolder = XposedHelpers.findClass(HookConstant.baseViewHolder, loader)
+        val userEntity = XposedHelpers.findClass(HookConstant.userFindResult, loader)
         //Grid UI
-        XposedHelpers.findAndHookMethod(HookConstant.distanceGrid4Adapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceGrid4AdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(HookConstant.peopleGridQuickAdapter, loader, "c",
+                baseViewHolder, userEntity, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
-                XposedBridge.log("This item's type is 2,so We do not need to perform this method")
+                XposedBridge.log("This item's type is 11,so We do not need to perform this method")
                 param!!.result = null
             }
         })
         //List UI
-        XposedHelpers.findAndHookMethod(HookConstant.distanceListAdapter, loader, "a", XposedHelpers.findClass(HookConstant.distanceListAdapterHolder, loader), XposedHelpers.findClass(HookConstant.nearByWithAds, loader), Int::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                XposedBridge.log("This item's type is 2,so We do not need to perform this method")
-                param!!.result = null
-            }
-        })
+        //The PeopleListQuickAdapter extends PeopleGridQuickAdapter, so we don't need to hook PeopleListQuickAdapter.
     }
 
 

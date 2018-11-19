@@ -47,3 +47,6 @@ captures/
 .idea/gradle.xml
 .idea/copyright/profiles_settings.xml
 .idea/compiler.xml
+.idea/misc.xml
+app/release/output.json
+app/release/output.json
