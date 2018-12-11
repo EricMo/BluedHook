@@ -39,7 +39,7 @@ class VipModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
     }
 
     private fun unlockVIP() {
-        XposedHelpers.findAndHookMethod(HookConstant.userInfo, loader, "p", object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(HookConstant.userInfo, loader, "k", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 //login info
                 val loginResult = param!!.result
