@@ -9,6 +9,7 @@
     <string name="support">Support</string>
     <string name="restart_setting">Because the settings are modified, it is suggested to restart the application</string>
     <string name="dialogTitle">Tips</string>
+    <string name="chocieSupport">Please choice a way to contract the author</string>
     <string name="supportTips">Later we will evoke your application and visit the author\'s personal home page (this will leave the access footprint).</string>
     <string name="sure">OK</string>
     <string name="noNeed">No Need</string>
@@ -17,4 +18,5 @@
     <string name="extra_burning_pic_hint">This picture is converted from a Burning Picture.</string>
     <string name="extra_burning_video_hint">This video is converted from a Burning Video.Click to play</string>
     <string name="extra_recall_hint">He tried to recall this message.</string>
+
 </resources>

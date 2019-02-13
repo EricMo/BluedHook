@@ -29,7 +29,7 @@ class DynamicLayoutModule(loader: ClassLoader, mContext: Context) : BaseModule(l
         XposedHelpers.findAndHookMethod(HookConstant.mineFragment, loader, "b", List::class.java, object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 val classZ = param!!.thisObject.javaClass
-                val nField = classZ.getDeclaredField("T")
+                val nField = classZ.getDeclaredField("V")
                 nField.isAccessible = true
                 val data = (nField.get(param.thisObject) as MutableList<Any>)
                 val col = data.find {
@@ -74,7 +74,7 @@ class DynamicLayoutModule(loader: ClassLoader, mContext: Context) : BaseModule(l
                         if (id != null && TextUtils.equals("-1", id as String)) {
                             val o = XposedHelpers.getObjectField(holder, "o") as ImageView
                             //icon_more_setting
-                            o.setImageResource(2130838372)
+                            o.setImageResource(2130838384)
                             val n = XposedHelpers.getObjectField(holder, "n") as View
                             n.setOnClickListener {
                                 LayoutHelper.openSelfModule(mContext)
