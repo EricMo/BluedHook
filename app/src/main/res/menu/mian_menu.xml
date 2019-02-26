@@ -8,4 +8,16 @@
         android:title="@string/support"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/download"
+        android:orderInCategory="0"
+        android:title="@string/download"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/telegram"
+        android:orderInCategory="0"
+        android:title="@string/telegram"
+        app:showAsAction="never"
+        />
 </menu>

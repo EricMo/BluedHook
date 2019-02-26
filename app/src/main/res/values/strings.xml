@@ -7,10 +7,15 @@
     <string name="failed">ACTIVATION FAILURE</string>
     <string name="setting">Setting</string>
     <string name="support">Support</string>
+    <string name="download">Download</string>
+    <string name="telegram">telegram</string>
     <string name="restart_setting">Because the settings are modified, it is suggested to restart the application</string>
     <string name="dialogTitle">Tips</string>
     <string name="chocieSupport">Please choice a way to contract the author</string>
     <string name="supportTips">Later we will evoke your application and visit the author\'s personal home page (this will leave the access footprint).</string>
+    <string name="downloadTips">We will open this link:https://pan.baidu.com/s/1nvZLaml</string>
+    <string name="telegramTips">If you want contract me by Telegram,Please join in this group:@Chat4Gay.Do you
+        want do that?</string>
     <string name="sure">OK</string>
     <string name="noNeed">No Need</string>
     <string name="openSetting">Open UI</string>

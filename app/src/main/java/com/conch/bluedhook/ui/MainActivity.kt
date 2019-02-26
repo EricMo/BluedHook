@@ -60,10 +60,15 @@ class MainActivity : AppCompatActivity() {
         when (item!!.itemId) {
             R.id.link_me -> {
                 linkMe()
-                return@onOptionsItemSelected true
+            }
+            R.id.download -> {
+                download()
+            }
+            R.id.telegram -> {
+                telegram()
             }
         }
-        return@onOptionsItemSelected false
+        return true
     }
 
     override fun onResume() {
@@ -72,6 +77,40 @@ class MainActivity : AppCompatActivity() {
             askSupport = false
             Snackbar.make(root, R.string.openApplication, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    /**
+     * open download link
+     */
+    private fun download() {
+        AlertDialog.Builder(this)
+                .setTitle(R.string.dialogTitle)
+                .setMessage(R.string.downloadTips)
+                .setPositiveButton(R.string.sure) { _, _ ->
+                    val uri = Uri.parse("https://pan.baidu.com/s/1nvZLaml")
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    startActivity(intent)
+                }
+                .create()
+                .show()
+
+    }
+
+    /**
+     * open telegram and join this group
+     */
+    private fun telegram() {
+        AlertDialog.Builder(this)
+                .setTitle(R.string.dialogTitle)
+                .setMessage(R.string.telegramTips)
+                .setPositiveButton(R.string.sure) { _, _ ->
+                    val uri = Uri.parse("https://t.me/Chat4Gay")
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    startActivity(intent)
+                }
+                .create()
+                .show()
+
     }
 
     /**

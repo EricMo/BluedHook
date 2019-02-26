@@ -80,9 +80,9 @@ object LayoutHelper {
         layoutParams.gravity = 1
         textView.tag = 1
         textView.textSize = 12.0f
-        textView.setBackgroundResource(2130839166)
+        textView.setBackgroundResource(2130839176)
         textView.text = s
-        textView.setTextColor(ContextCompat.getColor(context, 2131624274))
+        textView.setTextColor(ContextCompat.getColor(context, 2131624275))
         textView.gravity = 1
         textView.setPadding(20, 5, 20, 5)
         textView.layoutParams = layoutParams

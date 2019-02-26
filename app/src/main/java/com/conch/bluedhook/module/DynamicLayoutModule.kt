@@ -74,7 +74,7 @@ class DynamicLayoutModule(loader: ClassLoader, mContext: Context) : BaseModule(l
                         if (id != null && TextUtils.equals("-1", id as String)) {
                             val o = XposedHelpers.getObjectField(holder, "o") as ImageView
                             //icon_more_setting
-                            o.setImageResource(2130838384)
+                            o.setImageResource(2130838391)
                             val n = XposedHelpers.getObjectField(holder, "n") as View
                             n.setOnClickListener {
                                 LayoutHelper.openSelfModule(mContext)
