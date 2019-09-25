@@ -18,12 +18,12 @@ import de.robv.android.xposed.XposedHelpers
 class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mContext) {
     fun removeAds() {
         removeWelcomeAds()
-        removeNearbyAds()
-        removeSquareAds()
+        //removeNearbyAds()
+        //removeSquareAds()
         //removeVipDoor()
         //removeMoney()
-        removeGameCenter()
-        removeVisitor()
+        //removeGameCenter()
+        //removeVisitor()
     }
 
     /**
@@ -131,7 +131,7 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
                 val classZ = param!!.thisObject.javaClass
                 val nField = classZ.getDeclaredField("c")
                 nField.isAccessible = true
-                (nField.get(param.thisObject) as View).findViewById(2131625267).visibility = View.GONE
+                //(nField.get(param.thisObject) as View).findViewById(2131625267).visibility = View.GONE
             }
         })
 
@@ -145,10 +145,12 @@ class AdsModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         XposedHelpers.findAndHookMethod(HookConstant.visitorAdapter, loader, "a", List::class.java, Int::class.java, object : XC_MethodHook() {
             override fun beforeHookedMethod(param: MethodHookParam?) {
                 val data = param!!.args[0] as MutableList<*>
-                (data).forEachIndexed { index, it ->
-                    if (XposedHelpers.getIntField(it, "is_ads") == 1) {
+                val iterator = data.iterator()
+                while (iterator.hasNext()) {
+                    val item = iterator.next()
+                    if (XposedHelpers.getIntField(item, "is_ads") == 1) {
                         XposedBridge.log("This is ads,So remove it")
-                        data.removeAt(index)
+                        iterator.remove()
                     }
                 }
                 param.args[0] = data

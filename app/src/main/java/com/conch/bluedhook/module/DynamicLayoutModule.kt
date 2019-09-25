@@ -15,7 +15,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 
 /**
- * @Description modify layout(u can see [LayoutModule])
+ * @Description modify layout
  * @Author Benjamin
  * @CreateDate 2018-05-29 14:42
  **/

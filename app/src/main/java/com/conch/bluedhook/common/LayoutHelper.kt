@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import kotlin.jvm.internal.Intrinsics
+import android.graphics.drawable.GradientDrawable
 
 
 /**
@@ -80,13 +82,23 @@ object LayoutHelper {
         layoutParams.gravity = 1
         textView.tag = 1
         textView.textSize = 12.0f
-        textView.setBackgroundResource(2130839176)
+        textView.background = makeNotifyBackground()
         textView.text = s
-        textView.setTextColor(ContextCompat.getColor(context, 2131624275))
+        textView.setTextColor(Color.parseColor("#ADAFB0"))
         textView.gravity = 1
         textView.setPadding(20, 5, 20, 5)
         textView.layoutParams = layoutParams
         return textView
+    }
+
+    /**
+     * make a notify's background
+     */
+    private fun makeNotifyBackground(): Drawable {
+        val drawable = GradientDrawable()
+        drawable.cornerRadius = 12f
+        drawable.setColor(Color.parseColor("#F3F3F3"))
+        return drawable
     }
 
 

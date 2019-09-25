@@ -1,6 +1,7 @@
 package com.conch.bluedhook
 
 
+import android.content.Context
 import android.util.Log
 import com.conch.bluedhook.common.HookConstant
 import com.conch.bluedhook.common.SelfHookConstant
@@ -24,7 +25,9 @@ class MainModule : IXposedHookLoadPackage {
         //active self
         if (lpparam.packageName == SelfHookConstant.processName) {
             ApplicationModule.hookApplicationContext(lpparam) { mContext, mClassLoader ->
-                XposedHelpers.findAndHookMethod(SelfHookConstant.mainActivity, mClassLoader, "isActivated", object : XC_MethodHook() {
+                XposedHelpers.findAndHookMethod(SelfHookConstant.mainActivity, mClassLoader, "isActivated",
+                        Context::class.java, object :
+                        XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam?) {
                         Log.d("fake", "just for vxp")
                         param!!.result = true
@@ -41,9 +44,9 @@ class MainModule : IXposedHookLoadPackage {
                 //Message Module
                 MessageModule(mClassLoader, mContext).hookMessage()
                 //layout
-                DynamicLayoutModule(mClassLoader, mContext).layout()
+                //DynamicLayoutModule(mClassLoader, mContext).layout()
                 //vip
-                VipModule(mClassLoader,mContext).hookVip()
+                VipModule(mClassLoader, mContext).hookVip()
             }
         }
     }

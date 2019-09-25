@@ -165,7 +165,7 @@ class MessageModule(loader: ClassLoader, mContext: Context) : BaseModule(loader,
         XposedHelpers.findAndHookMethod(HookConstant.msgAdapter, loader, "a", Int::class.java, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam?) {
                 val root = param!!.result as ViewGroup
-                if (root.findViewWithTag(0x0000001) != null) {
+                if (root.findViewWithTag<View>(0x0000001) != null) {
                     root.removeView(root.findViewWithTag(0x0000001))
                 }
                 val data = XposedHelpers.getObjectField(param.thisObject, "a") as List<Any>

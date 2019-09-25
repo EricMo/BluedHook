@@ -52,6 +52,9 @@ object HookConstant {
     //userInfo
     val userInfo="$processName.user.UserInfo"
 
+    //BluedLoginResult
+    val bluedLoginResult="$processName.ui.login_register.model.BluedLoginResult"
+
     //_more_columns
     val _more_columns="$processName.ui.discover.model.MineEntryInfo\$_more_columns"
 

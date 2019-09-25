@@ -2,6 +2,7 @@ package com.conch.bluedhook.module
 
 import android.content.Context
 import com.conch.bluedhook.common.HookConstant
+import com.conch.bluedhook.common.ReflectionUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import java.lang.StringBuilder
@@ -38,14 +39,20 @@ class VipModule(loader: ClassLoader, mContext: Context) : BaseModule(loader, mCo
         })
     }
 
+    //unlock local vip field
     private fun unlockVIP() {
-        XposedHelpers.findAndHookMethod(HookConstant.userInfo, loader, "k", object : XC_MethodHook() {
-            override fun afterHookedMethod(param: MethodHookParam?) {
-                //login info
-                val loginResult = param!!.result
-                //change to vip
-                XposedHelpers.setIntField(loginResult, "vip_grade", 2)
-            }
-        })
+        val targetClass = loader.loadClass(HookConstant.userInfo)
+        val resultClass = loader.loadClass(HookConstant.bluedLoginResult)
+        val methods = XposedHelpers.findMethodsByExactParameters(targetClass, resultClass)
+        methods.forEach {
+            XposedHelpers.findAndHookMethod(HookConstant.userInfo, loader, it.name, object : XC_MethodHook() {
+                override fun afterHookedMethod(param: MethodHookParam?) {
+                    //login info
+                    val loginResult = param!!.result
+                    //change to vip
+                    XposedHelpers.setIntField(loginResult, "vip_grade", 2)
+                }
+            })
+        }
     }
 }

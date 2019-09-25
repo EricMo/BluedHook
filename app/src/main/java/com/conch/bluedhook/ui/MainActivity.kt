@@ -1,7 +1,8 @@
 package com.conch.bluedhook.ui
 
 import android.content.ComponentName
-import android.content.DialogInterface
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,11 +10,8 @@ import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.LinearLayout
 import com.conch.bluedhook.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //check activated state
-        if (isActivated()) {
+        if (isActivated(this)) {
             state.text = getString(R.string.success)
             state.setTextColor(ContextCompat.getColor(this, R.color.colorGreen))
         } else {
@@ -41,8 +39,35 @@ class MainActivity : AppCompatActivity() {
      * get isActivated state
      * We must hook this method in {@link SelfModule} and Return true
      */
-    private fun isActivated(): Boolean {
-        return false
+    private fun isActivated(context: Context): Boolean {
+        var isExp = false
+        try {
+            val contentResolver: ContentResolver = context.contentResolver;
+            val uri = Uri.parse("content://me.weishu.exposed.CP/")
+            var result: Bundle? = null
+            try {
+                result = contentResolver.call(uri, "active", null, null)
+            } catch (e: RuntimeException) {
+                // TaiChi is killed, try invoke
+                try {
+                    var intent = Intent("me.weishu.exp.ACTION_ACTIVE");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent)
+                } catch (e1: Throwable) {
+                    return false
+                }
+            }
+            if (result == null) {
+                result = contentResolver.call(uri, "active", null, null)
+            }
+
+            if (result == null) {
+                return false
+            }
+            isExp = result.getBoolean("active", false)
+        } catch (ignored: Throwable) {
+        }
+        return isExp
     }
 
     /**
